@@ -1,0 +1,43 @@
+.app-header {
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(218, 220, 224);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 4px 0px;
+  background-color: #fff;
+}
+
+.logo-img {
+  height: 35px;
+}
+
+.banner-text {
+  display: inline-block;
+  vertical-align: sub;
+  font-weight: 800;
+  font-size: 28px;
+}
+
+.top-nav-button-container {
+  display: flex;
+  justify-content: center;
+  width: 50px;
+}
+
+::ng-deep .mat-badge-medium.mat-badge-above .mat-badge-content {
+  top: -6px !important;
+}
+
+@media only screen and (min-width: 768px) {
+  .section-parent {
+    min-width: 15rem;
+  }
+}
+
+.profile-img-parent {
+  height: 33px;
+  display: flex;
+  width: 100%;
+}
+
+.user-dropdown {
+  height: 3rem;
+}

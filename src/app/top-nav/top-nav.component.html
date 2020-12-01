@@ -1,0 +1,33 @@
+<mat-toolbar class="app-toolbar app-header">
+  <div class="section-parent">
+    <button mat-icon-button color="primary" (click)="onMenuClick()"
+      class="mat-elevation-z0">
+        <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+
+  <div class="d-flex section-parent center-align" (click)="onLogoClick()">
+    <a [routerLink]="'/'" class="">
+      <img src="assets/banner/placeholder-logo.png" [@headShake]="logoShakeState"
+        class="logo-img d-inline-block" alt="logo">
+      <div class="secfont banner-text">{{ headerTitle }}</div>
+    </a>
+  </div>
+
+  <div class="d-flex section-parent f-right">
+    <button mat-button [matMenuTriggerFor]="menu" class="user-dropdown">
+      <div class="profile-img-parent">
+        <img [src]="avartarImgSrc" class="img-h-100 round-corners" alt="avartar">
+      </div>
+    </button>
+
+    <mat-menu #menu="matMenu" [class]="'user-profile-menu'">
+      <button *ngFor="let item of userMenuItems" mat-menu-item (click)="onMenuItemClick(item)"
+        [disabled]="item.disabled">
+        <mat-icon *ngIf="item.iconName">{{item.iconName}}</mat-icon>
+        <span>{{item.display}}</span>
+      </button>
+    </mat-menu>
+  </div>
+
+</mat-toolbar>

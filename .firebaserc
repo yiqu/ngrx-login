@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "ngrx-qu"
+  },
+  "targets": {
+    "ngrx-qu": {
+      "hosting": {
+        "login-ngrx": [
+          "ngrx-qu"
+        ]
+      }
+    }
   }
 }
