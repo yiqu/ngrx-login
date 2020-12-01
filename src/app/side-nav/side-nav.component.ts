@@ -24,8 +24,23 @@ export class SideNavComponent implements OnInit, OnDestroy {
 
   createAllOptions() {
     this.headerList.push(
-      new NavHeaderList(new NavHeader("Your Parent Header"), [
-        new NavHeaderLink("My Link", "assessment", ["/", "listings"]),
+      new NavHeaderList(new NavHeader("Issues"), [
+        new NavHeaderLink("All Issues", "assessment", ["/", "listings"]),
+        new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),
+        new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),
+        new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),
+        new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),
+        new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),
+        new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),
+        new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),
+        new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),
+        new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),
+        new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),
+        new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),
+        new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),
+        new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),
+        new NavHeaderLink("Option 2", "assessment", ["/", "listings2"]),
+        new NavHeaderLink("Option 2", "assessment", ["/", "listings2"])
       ]),
       new NavHeaderList(new NavHeader("Help & Settings"), [
         new NavHeaderLink("My Account", "account_circle", ["/", "my-account"]),

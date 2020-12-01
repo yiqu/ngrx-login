@@ -1,11 +1,51 @@
+.app-footer2 {
+  font-size: 12px;
+  font-weight: 700;
+  background-color: #022144;
+  padding: 80px 0 40px;
+  color: #fff;
+}
+
+.app-core {
+  min-height: 80vh;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
 .app-sidenav-container {
   /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
      causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
   flex: 1;
+  background-color: #fff;
 }
 
 .app-is-mobile .app-sidenav-container {
   /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
      `<body>` to be our scrolling element for mobile layouts. */
   flex: 1;
+}
+
+footer.bottom-links {
+  background-color: #022144;
+  padding: 80px 0 40px;
+}
+
+.footer-img {
+  height: 35px;
+}
+
+.app-footer2 .img-parent {
+  padding-top: 9px;
+}
+
+.app-footer2 a {
+  color: #bbb;
 }

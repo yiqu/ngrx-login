@@ -6,11 +6,11 @@
     </button>
   </div>
 
-  <div class="d-flex section-parent center-align" (click)="onLogoClick()">
+  <div class="d-flex section-parent center-align if" (click)="onLogoClick()">
     <a [routerLink]="'/'" class="">
-      <img src="assets/banner/placeholder-logo.png" [@headShake]="logoShakeState"
+      <img src="assets/banner/resolved.png"
         class="logo-img d-inline-block" alt="logo">
-      <div class="secfont banner-text">{{ headerTitle }}</div>
+      <div class="banner-text ml-3">{{ headerTitle }}</div>
     </a>
   </div>
 

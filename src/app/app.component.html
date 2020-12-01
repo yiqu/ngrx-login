@@ -1,2 +1,38 @@
-Welcome Kevin
-<router-outlet></router-outlet>
+<div class="app-container" [class.app-is-mobile]="mobileQuery.matches">
+  <app-top-nav (navToggle)="onTopNavMenuClick()"></app-top-nav>
+
+  <mat-sidenav-container class="app-sidenav-container"
+  [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'over'"
+      [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" fixedBottomGap="41"
+      autoFocus="false">
+      <app-side-nav (navClose)="onNavClose()"></app-side-nav>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div class="app-core">
+        <router-outlet></router-outlet>
+      </div>
+      <mat-toolbar class="app-footer2">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-2">
+              <div class="img-parent">
+                <img src="assets/banner/resolved.png"
+                class="footer-img d-inline-block" alt="logo">
+              </div>
+            </div>
+            <div class="col-lg-10">
+              <div class="mr-3">{{footerTitle}}</div>
+              <a [href]="myUrl" target="_blank">Come visit me</a>
+            </div>
+          </div>
+        </div>
+      </mat-toolbar>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+</div>
+
+

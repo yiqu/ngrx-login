@@ -9,6 +9,13 @@ import { NotFoundComponentModule } from './404/404.module';
 import { MaterialModuleBundle } from './shared/material-bundle';
 import { TopNavModule } from './top-nav/top-nav.module';
 import { SideNavModule } from './side-nav/side-nav.module';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
+import { appReducers } from './stores/global/app.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { appEffects } from './stores/global/app.effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
 
 @NgModule({
   declarations: [
@@ -17,6 +24,12 @@ import { SideNavModule } from './side-nav/side-nav.module';
 
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    StoreModule.forRoot(appReducers),
+    EffectsModule.forRoot(appEffects),
+    StoreDevtoolsModule.instrument({
+      maxAge: 15
+    }),
     AppRoutingModule,
     BrowserAnimationsModule,
     NotFoundComponentModule,

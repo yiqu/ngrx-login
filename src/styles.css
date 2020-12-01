@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
-@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Nerko+One&family=Roboto&display=swap');
+/* @import '@angular/material/prebuilt-themes/deeppurple-amber.css'; */
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Nerko+One&family=Roboto:wght@400;700&display=swap');
 
 body {
   /* margin: 0;  */
@@ -16,11 +16,11 @@ body {
 }
 
 .if {
-  font-family: 'Indie Flower', cursive;
+  font-family: 'Indie Flower', cursive !important;
 }
 
 .neko {
-  font-family: 'Nerko One', cursive;
+  font-family: 'Nerko One', cursive !important;
 }
 
 a {
@@ -43,6 +43,10 @@ a {
   font-size: 14px;
 }
 
+.fs-18 {
+  font-size: 18px;
+}
+
 .img-h-100 {
   height: 100%;
 }
@@ -51,8 +55,8 @@ a {
   width: 100%;
 }
 
-.f-w-800 {
-  font-weight: 800;
+.f-w-700 {
+  font-weight: 700;
 }
 
 .f-right {
@@ -62,11 +66,6 @@ a {
 
 .toolbar-spacer {
   flex: 1 1 auto;
-}
-
-.center-loading {
-  display: flex;
-  justify-content: center;
 }
 
 .center-align {
@@ -107,4 +106,9 @@ a {
   position: fixed;
   /* Make sure the toolbar will stay on top of the content as it scrolls past. */
   z-index: 2;
+}
+
+
+app-side-nav .mat-list-item-content {
+  font-family: 'Indie Flower', cursive;
 }

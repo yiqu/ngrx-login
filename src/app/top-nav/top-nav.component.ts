@@ -20,7 +20,7 @@ const defaultProfileImg: string = "assets/user/default-user5.png";
 })
 export class TopNavComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  headerTitle: string = "Qu's Issue Tracker";
+  headerTitle: string = "Issue Tracker";
   compDest$: Subject<any> = new Subject<any>();
   logoShakeState: boolean = false;
   leftNavMenuState: boolean = false;

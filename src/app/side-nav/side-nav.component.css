@@ -1,9 +1,10 @@
 .nav-title-container {
   padding: 16px;
   padding-bottom: .9375rem;
-  font-weight: 800;
+  font-weight: 700;
   display: flex;
   justify-content: space-between;
+  font-size: 20px;
 }
 
 .nav-title-container .button-container {
@@ -20,7 +21,11 @@
 }
 
 mat-list-item.link-active {
-  background-color: #cccccc;
+  background-color: rgba(0,0,0,.04);
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
+}
+
+.sub-header {
+  font-size: 20px;
 }

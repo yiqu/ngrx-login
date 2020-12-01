@@ -1,5 +1,5 @@
 <mat-nav-list>
-  <div class="nav-title-container">
+  <div class="nav-title-container if">
     <div class="nav-title" (click)="onTitleClick()">
       {{navTitle}}
     </div>
@@ -9,8 +9,9 @@
       </button>
     </div>
   </div>
-  <ng-container *ngFor="let hl of headerList">
-    <div mat-subheader>{{hl.header.display}}</div>
+
+  <ng-container *ngFor="let hl of headerList; first as isFirst">
+    <div mat-subheader class="sub-header if" [class]="isFirst?'':'mt-3'">{{hl.header.display}}</div>
     <ng-container *ngFor="let hlc of hl.links">
       <a class="fs-13" mat-line [routerLink]="hlc.url" (click)="onNavItemClick()">
         <mat-list-item [routerLinkActive]="'link-active'">

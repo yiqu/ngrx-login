@@ -1,6 +1,8 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
 import * as firebase from 'firebase/app';
+import { Subject } from 'rxjs';
 // import 'firebase/analytics';
 // import 'firebase/auth';
 // import 'firebase/database';
@@ -14,6 +16,13 @@ import { IsMobileService } from './shared/services/is-mobile.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+
+  footerTitle: string = "@KQ 2020";
+  myUrl: string = "https://yiqu.github.io/";
+  compDest$: Subject<any> = new Subject<any>();
+
+  @ViewChild("snav")
+  sideNav!: MatSidenav;
 
   mobileQuery!: MediaQueryList;
   private _mobileQueryListener!: () => void;
@@ -41,6 +50,18 @@ export class AppComponent implements OnInit {
    */
   initFirebase() {
     firebase.default.initializeApp(environment.firebaseConfig);
+  }
+
+  onTopNavMenuClick() {
+    if (this.sideNav) {
+      this.sideNav.toggle();
+    }
+  }
+
+  onNavClose() {
+    if (this.sideNav) {
+      this.sideNav.close();
+    }
   }
 
 }
