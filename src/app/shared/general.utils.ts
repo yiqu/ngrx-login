@@ -1,4 +1,5 @@
 import { FormControl } from '@angular/forms';
+import { PriorityLevel } from './models/general.model';
 
 export function createFormControl(value: any, disabled: boolean, validators: any[] = [], asyncValids: any[] = []): FormControl {
   let fc = new FormControl({
@@ -15,3 +16,19 @@ export function createFormControl2(value: any, disabled: boolean, validators: an
   }, validators, asyncValids);
   return fc;
 }
+
+
+export const PRIORITY_LIST = [
+  {
+    id: PriorityLevel.High,
+    display: "High"
+  },
+  {
+    id: PriorityLevel.Medium,
+    display: "Medium"
+  },
+  {
+    id: PriorityLevel.Low,
+    display: "Low"
+  }
+]

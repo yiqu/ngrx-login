@@ -6,6 +6,11 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MaterialModuleBundle } from '../shared/material-bundle';
 import { IssueDisplayComponent } from './issue-display/display.component';
 import { IssueCreatorComponent } from './issue-creator/creator.component';
+import { StoreModule } from '@ngrx/store';
+import * as fromIssueReducer from '../stores/issue/issue.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import * as fromIssueEffects from '../stores/issue/issue.effects';
+
 
 @NgModule({
   imports: [
@@ -13,7 +18,9 @@ import { IssueCreatorComponent } from './issue-creator/creator.component';
     ReactiveFormsModule,
     FormsModule,
     CoreRoutingModule,
-    MaterialModuleBundle
+    MaterialModuleBundle,
+    StoreModule.forFeature("issues", fromIssueReducer.issuesEntityReducer),
+    EffectsModule.forFeature(fromIssueEffects.issuesEffects)
   ],
 
   exports: [

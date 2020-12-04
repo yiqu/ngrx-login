@@ -15,6 +15,7 @@ import { appReducers } from './stores/global/app.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { appEffects } from './stores/global/app.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -35,7 +36,23 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     NotFoundComponentModule,
     MaterialModuleBundle,
     TopNavModule,
-    SideNavModule
+    SideNavModule,
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      extendedTimeOut: 1000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: false,
+      closeButton: true,
+      enableHtml: true,
+      progressBar: true,
+      newestOnTop: true,
+      iconClasses : {
+        error: 'toast-error',
+        info: 'toast-info',
+        success: 'toast-success',
+        warning: 'toast-warning'
+      }
+    }),
   ],
 
   providers: [],

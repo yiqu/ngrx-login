@@ -59,3 +59,7 @@ export const issueEntityReducer = createReducer(
     })
   })
 )
+
+export function issuesEntityReducer(state: IssueEntityState | undefined, action: Action) {
+  return issueEntityReducer(state, action);
+}

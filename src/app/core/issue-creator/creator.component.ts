@@ -19,21 +19,7 @@ export class IssueCreatorComponent implements OnInit, OnDestroy {
   formInitValue: IIssue;
 
   constructor(private fb: FormBuilder, private cs: CrudService) {
-
-    this.priorityList = [
-      {
-        id: PriorityLevel.High,
-        display: "High"
-      },
-      {
-        id: PriorityLevel.Medium,
-        display: "Medium"
-      },
-      {
-        id: PriorityLevel.Low,
-        display: "Low"
-      }
-    ];
+    this.priorityList = gUtils.PRIORITY_LIST;
     this.issueFg = new FormGroup({});
 
     this.formInitValue = {
@@ -82,9 +68,8 @@ export class IssueCreatorComponent implements OnInit, OnDestroy {
     if (this.issueFg.valid) {
       const data = this.createFullIssueObject(issueVal);
       const docPath: string = ISSUE_PATH + "/" + data.id;
-
       console.log("valid, saving.....", data);
-      this.cs.createDocument(data, docPath);
+      this.cs.addNewIssue(data, docPath);
     }
   }
 
