@@ -13,7 +13,7 @@ before_script:
 
 script:
   - echo "Building for PROD"
-  - ng build --prod --base-href=/login-ngrx/
+  - ng build --prod --base-href=/ngrx-login/
 
 after_success:
   - echo "Build SUCCESS!!!"
@@ -25,7 +25,7 @@ deploy:
   keep-history: true
   on:
     branch: master
-  local_dir: dist/login-ngrx/  # Only copy the /dist/siling1k contents (Angular > 6)
+  local_dir: dist/ngrx-login/  # Only copy the /dist/siling1k contents (Angular > 6)
 
 after_deploy:
   - echo "Deployed to GH Pages!!!"
