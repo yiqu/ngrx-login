@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/yiqu/ngrx-login.svg?branch=master)](https://travis-ci.com/yiqu/ngrx-login)
 
-Stable: 
+Stable: https://ngrx-qu.web.app/
 
 Dev: https://yiqu.github.io/ngrx-login/
 

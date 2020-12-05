@@ -5,7 +5,7 @@
   "hosting": [
     {
       "target": "login-ngrx",
-      "public": "dist/login-ngrx",
+      "public": "dist/ngrx-login",
       "ignore": [
         "firebase.json",
         "**/.*",
@@ -14,7 +14,7 @@
     },
     {
       "target": "login-ngrx",
-      "public": "dist/login-ngrx",
+      "public": "dist/ngrx-login",
       "ignore": [
         "**/.*"
       ],
