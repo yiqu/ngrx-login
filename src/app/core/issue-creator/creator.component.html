@@ -3,9 +3,16 @@
     <mat-card-header>
       <div mat-card-avatar class="creator-header-image"></div>
       <mat-card-title class="if f-w-700">
-        Add Issue {{issueFg.pristine ? '' : '*'}}
+        <div class="title-parent">
+          <div>
+            Add Issue {{issueFg.pristine ? '' : '*'}}
+          </div>
+          <div>
+            <button mat-stroked-button (click)="onIssueCancel()">Cancel</button>
+          </div>
+        </div>
       </mat-card-title>
-      <mat-card-subtitle class="if">#10</mat-card-subtitle>
+      <!-- <mat-card-subtitle class="if">#10</mat-card-subtitle> -->
     </mat-card-header>
 
     <mat-card-content class="mt-2">

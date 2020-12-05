@@ -32,3 +32,9 @@
 mat-card mat-card-subtitle {
   font-size: 19px;
 }
+
+.title-parent {
+  display: flex;
+  justify-content: space-between;
+}
+

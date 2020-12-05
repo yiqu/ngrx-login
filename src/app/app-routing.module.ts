@@ -5,8 +5,8 @@ import { CoreComponent } from './core/core.component';
 import { NetworkAwarePreloadStrategy } from './preload-strat';
 
 const routes: Routes = [
-  { path: "", redirectTo: "listings", pathMatch: "full" },
-  { path: 'listings',
+  { path: "", redirectTo: "issues", pathMatch: "full" },
+  { path: 'issues',
     loadChildren: () => import('./core/core.module').then(m => m.CoreModule)
   },
   { path: '**', component: NotFoundComponent}

@@ -87,6 +87,27 @@ a {
   border-radius: 50%;
 }
 
+/**
+Used to sticky button rows, etc
+**/
+.sticky-top {
+  position: sticky;
+  top: 0;
+  background-color: #cfe2f7;
+  z-index: 3;
+  padding: 10px;
+  padding-left: 0px;
+}
+
+.border-grey-light {
+  border-color: #eaecef !important;
+  border: 1px solid;
+}
+
+mat-card-header .mat-card-header-text {
+  width: 100% !important;
+}
+
  /* Extra small devices (phones, 600px and down) */
  @media only screen and (max-width: 600px) {}
 
