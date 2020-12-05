@@ -1,0 +1,32 @@
+language: node_js
+node_js:
+  - stable # Use stable version of node
+
+branches:
+  only:
+    - master # Only build master branch
+  except:
+    - gh-pages # Do not ever build off gh-pages branch
+
+before_script:
+  - npm install -g @angular/cli #install angular CLI
+
+script:
+  - echo "Building for PROD"
+  - ng build --prod --base-href=/login-ngrx/
+
+after_success:
+  - echo "Build SUCCESS!!!"
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep-history: true
+  on:
+    branch: master
+  local_dir: dist/login-ngrx/  # Only copy the /dist/siling1k contents (Angular > 6)
+
+after_deploy:
+  - echo "Deployed to GH Pages!!!"
+  #- node update-version.js
