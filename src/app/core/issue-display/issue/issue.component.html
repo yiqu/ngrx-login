@@ -1,0 +1,16 @@
+<ng-container *ngIf="(issue) as currentIssue">
+  <mat-list-item class="issue-border" [class]="currentIssue?.open | openToCssClass">
+    <mat-icon mat-list-icon [class]="currentIssue?.priority?.id | priorToCssClass">error_outline</mat-icon>
+    <div mat-line class="issue-title">
+      <div>{{currentIssue?.title}}</div>
+      <div *ngIf="currentIssue?.loading"><mat-spinner color="primary" diameter="20"></mat-spinner></div>
+    </div>
+    <div mat-line class="issue-desc"> {{currentIssue?.description}} </div>
+    <div mat-line class="issue-meta" *ngIf="currentIssue?.created">
+      #40003 opened
+      {{currentIssue?.dateCreated | dateDisplay:'FROMNOW'}}
+      by {{currentIssue?.author}}
+    </div>
+  </mat-list-item>
+</ng-container>
+

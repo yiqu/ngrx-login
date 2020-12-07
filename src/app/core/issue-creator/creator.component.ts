@@ -33,7 +33,8 @@ export class IssueCreatorComponent implements OnInit, OnDestroy {
         display: "Low"
       },
       created: false,
-      loading: false
+      loading: false,
+      open: true
     };
   }
 
@@ -82,7 +83,8 @@ export class IssueCreatorComponent implements OnInit, OnDestroy {
       dateCreated: new Date().getTime(),
       id: this.cs.createDocId(),
       created: false,
-      loading: true
+      loading: true,
+      open: true
     };
   }
 

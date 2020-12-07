@@ -136,3 +136,23 @@ app-side-nav .mat-list-item-content {
 .app-snackbar {
   color: #eee !important;
 }
+
+.prior-low {
+  color: #80d4ff;
+}
+
+.prior-medium {
+  color: #cccc00;
+}
+
+.prior-high {
+  color: #e62e00;
+}
+
+.issue-open {
+  border-left: 3px solid #3333ff;
+}
+
+.issue-closed {
+  border-left: 3px solid #d9d9d9;
+}

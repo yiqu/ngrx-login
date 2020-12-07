@@ -10,6 +10,8 @@ import { StoreModule } from '@ngrx/store';
 import * as fromIssueReducer from '../stores/issue/issue.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import * as fromIssueEffects from '../stores/issue/issue.effects';
+import { SingleIssueComponent } from './issue-display/issue/issue.component';
+import { PipeBundleModule } from '../shared/pipes/pipe-bundle.module';
 
 
 @NgModule({
@@ -20,7 +22,8 @@ import * as fromIssueEffects from '../stores/issue/issue.effects';
     CoreRoutingModule,
     MaterialModuleBundle,
     StoreModule.forFeature("issues", fromIssueReducer.issuesEntityReducer),
-    EffectsModule.forFeature(fromIssueEffects.issuesEffects)
+    EffectsModule.forFeature(fromIssueEffects.issuesEffects),
+    PipeBundleModule
   ],
 
   exports: [
@@ -30,7 +33,8 @@ import * as fromIssueEffects from '../stores/issue/issue.effects';
   declarations: [
     CoreComponent,
     IssueDisplayComponent,
-    IssueCreatorComponent
+    IssueCreatorComponent,
+    SingleIssueComponent
   ],
 
   providers: [

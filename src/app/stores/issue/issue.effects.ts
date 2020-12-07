@@ -67,22 +67,26 @@ export class IssueEffects {
   loadAllIssues$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(fromIssueActions.loadAllIssuesStart),
-      map((res) => {
+      switchMap((res) => {
         const path = res.url;
-        return this.cs.readCollections(path).then(
+        return this.cs.readCollections<IIssue>(path).then(
           (res) => {
-            console.log(res.docs)
+            let allIssues: IIssue[] = [];
+            const currentTime: number = new Date().getTime();
+            console.log(res.docs.length)
             res.docs.forEach((d) => {
-              console.log(d.data())
-            })
+              allIssues.push(d.data());
+            });
+            return fromIssueActions.loadAllIssuesSuccess({data: allIssues, updatedTime: currentTime});
           },
           (rej) => {
-
+            const authErrMsg = fromFirebaseUtils.getFirebaseErrorMsg(rej);
+            return fromIssueActions.loadAllIssuesFailed({errMsg: authErrMsg});
           }
         )
       })
     );
-  }, {dispatch: false});
+  });
 
 
 

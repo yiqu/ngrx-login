@@ -13,6 +13,9 @@ const LOAD_ALL_ISSUES_START: string = "[Issue Display/API] Load all issues from 
 const LOAD_ALL_ISSUES_SUCCESS: string = "[Issue Display/API] Load all issues success";
 const LOAD_ALL_ISSUES_FAILED: string = "[Issue Display/API] Load all issues failed";
 
+const ADD_ISSUE: string = "[Issue Creator/API] Add one issue";
+const REMOVE_ISSUE: string = "[Issue Creator/API] Remove one issue";
+const MODIFY_ISSUE: string = "[Issue Creator/API] Modify one issue";
 
 export const createIssueStart = createAction(
   CREATE_ISSUE_START,
@@ -51,4 +54,19 @@ export const loadAllIssuesSuccess = createAction(
 export const loadAllIssuesFailed = createAction(
   LOAD_ALL_ISSUES_FAILED,
   props<{errMsg: string}>()
+)
+
+export const addOneIssue = createAction(
+  ADD_ISSUE,
+  props<{data: IIssue}>()
+)
+
+export const removeOneIssue = createAction(
+  REMOVE_ISSUE,
+  props<{data: IIssue}>()
+)
+
+export const upateOneIssue = createAction(
+  MODIFY_ISSUE,
+  props<{data: IIssue}>()
 )

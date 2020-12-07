@@ -16,12 +16,39 @@ const ISSUES_PATH: string = "issues";
 export class CrudService {
 
   constructor(private afs: AngularFirestore, private store: Store<AppState>) {
-    // this.readCollections(ISSUES_PATH).onSnapshot(
-    //   (res) => {
-    //   },
-    //   (err) => {
-    //   }
-    // )
+    //this.listenForIssueChanges();
+  }
+
+  /**
+   * Listen for issue collections changes
+   */
+  listenForIssueChanges() {
+    this.readCollectionsOnChanges<IIssue>(ISSUES_PATH, (res) => {
+      console.log(res.size)
+      res.docChanges().forEach((doc: firebase.default.firestore.DocumentChange<IIssue>) => {
+        console.log(doc.type, doc.doc.data())
+        this.updateIssuesStore(doc);
+      });
+    },
+    (err) => {
+    },
+    () => {
+      console.log("issue listenered stopped.")
+    });
+  }
+
+  updateIssuesStore(doc: firebase.default.firestore.DocumentChange<IIssue>) {
+    switch(doc.type) {
+      case "added": {
+        return;
+      }
+      case "modified": {
+        return;
+      }
+      case "removed": {
+        return;
+      }
+    }
   }
 
   createDocument<T>(data: T, url: string): Promise<void> {
@@ -39,16 +66,15 @@ export class CrudService {
     return doc.update(data);
   }
 
-  // readCollections(url: string): Observable<DocumentChangeAction<IIssue>[]> {
-  //   const collection: AngularFirestoreCollection<IIssue> = this.afs.collection<IIssue>(url);
-  //   return collection.snapshotChanges().pipe(
-  //     take(1)
-  //   );
-  // }
+  readCollections<T>(url: string): Promise<firebase.default.firestore.QuerySnapshot<T>> {
+    const collection: AngularFirestoreCollection<T> = this.afs.collection<T>(url);
+    return collection.ref.orderBy("dateCreated", "desc").get();
+  }
 
-  readCollections(url: string): Promise<firebase.default.firestore.QuerySnapshot<IIssue>> {
-    const collection: AngularFirestoreCollection<IIssue> = this.afs.collection<IIssue>(url);
-    return collection.ref.orderBy("dateCreated").get();
+  readCollectionsOnChanges<T>(url: string, next: (res: firebase.default.firestore.QuerySnapshot<T>)=>void,
+    error: (err: firebase.default.firestore.FirestoreError)=>void, complete: ()=>void) {
+    const collection: AngularFirestoreCollection<T> = this.afs.collection<T>(url);
+    return collection.ref.orderBy("dateCreated", "desc").onSnapshot(next, error, complete);
   }
 
   addNewIssue(issue: IIssue, path: string): void {

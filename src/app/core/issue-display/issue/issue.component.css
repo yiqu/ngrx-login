@@ -1,0 +1,22 @@
+.issue-border {
+  border-right: 1px solid #e1e4e8;
+  border-bottom: 1px solid #e1e4e8;
+}
+
+.mat-line.issue-desc {
+  color: #888;
+  font-size: 13px !important;
+  line-height: 22px;
+}
+
+.mat-line.issue-title {
+  font-weight: 400;
+  font-family: 'Nerko One', cursive !important;
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.mat-line.issue-meta {
+  font-size: 13px !important;
+}

@@ -18,6 +18,7 @@ export interface IIssue {
   priority?: IssuePriority
   author?: string;
   reactions?: number;
+  open: boolean;
 
   created: boolean;
   loading: boolean;
@@ -26,7 +27,7 @@ export interface IIssue {
 export class Issue implements IIssue {
   constructor(public id: string, public title: string, public description: string, public dateCreated: number,
     public priority: IssuePriority, public author: string,
-    public created: boolean, public loading: boolean,
+    public created: boolean, public loading: boolean, public open: boolean,
     public lastEdited?: number, public reactions?: number) {
   }
 }

@@ -5,6 +5,7 @@ import { DateDisplayPipe } from './time-utils.pipe';
 import { UserDisplayPipe } from './user.pipe';
 import { CapitalizeFirstLetterPipe } from './letters.pipe';
 import { TableColumnDisplayPipe, TableDataDisplayPipe } from './table.pipe';
+import { OpenStatusToCssClassPipe, PriorityToCssClassPipe } from './general.pipe';
 
 @NgModule({
   imports: [],
@@ -16,7 +17,9 @@ import { TableColumnDisplayPipe, TableDataDisplayPipe } from './table.pipe';
     UserDisplayPipe,
     CapitalizeFirstLetterPipe,
     TableColumnDisplayPipe,
-    TableDataDisplayPipe
+    TableDataDisplayPipe,
+    PriorityToCssClassPipe,
+    OpenStatusToCssClassPipe
   ],
 
   declarations: [
@@ -26,7 +29,9 @@ import { TableColumnDisplayPipe, TableDataDisplayPipe } from './table.pipe';
     UserDisplayPipe,
     CapitalizeFirstLetterPipe,
     TableColumnDisplayPipe,
-    TableDataDisplayPipe
+    TableDataDisplayPipe,
+    PriorityToCssClassPipe,
+    OpenStatusToCssClassPipe
   ],
 
   providers: [],

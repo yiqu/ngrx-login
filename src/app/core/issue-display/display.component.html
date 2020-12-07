@@ -1,33 +1,17 @@
-<div>
-  List of Issues
-</div>
-<div>
-  List of Issues
-</div>
-<div>
-  List of Issues
-</div>
-<div class="mb-5">
-  List of Issues
-</div>
-<div class="mb-5">
-  List of Issues
-</div>
-<div class="mb-5">
-  List of Issues
-</div>
-<div class="mb-5">
-  List of Issues
-</div>
-<div>
-  List of Issues
-</div>
-<div>
-  List of Issues
-</div>
-<div>
-  List of Issues
-</div>
-<div>
-  List of Issues
-</div>
+<mat-list>
+  <mat-list-item class="issues-header">
+    <div mat-line class="d-flex">
+      <mat-icon class="open">error_outline</mat-icon>
+      <div>10 Open</div>
+      <mat-icon class="closed">check_circle_outline</mat-icon>
+      <div>5 Closed</div>
+    </div>
+  </mat-list-item>
+
+  <ng-container *ngIf="(this.cs.getAllIssues$ | async) as allIssues">
+    <ng-container *ngFor="let issue of allIssues">
+      <app-core-issue-display-issue [issue]="issue"></app-core-issue-display-issue>
+    </ng-container>
+  </ng-container>
+
+</mat-list>

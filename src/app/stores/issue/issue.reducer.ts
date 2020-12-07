@@ -7,6 +7,7 @@ export interface IssueEntityState extends EntityState<IIssue> {
   loading: boolean;
   fbError: boolean;
   fbErrorMsg: string | null;
+  allIssuesLastFetched: number;
 }
 
 export function selectId(i: IIssue) {
@@ -14,18 +15,19 @@ export function selectId(i: IIssue) {
 }
 export function comparator(a: IIssue, b: IIssue) {
   if (a.dateCreated && b.dateCreated) {
-    return a.dateCreated > b.dateCreated ? 1 : -1;
+    return a.dateCreated < b.dateCreated ? 1 : -1;
   }
   return 1;
 }
 export const adapter = createEntityAdapter<IIssue>({
   selectId: selectId,
-  sortComparer: comparator
+  sortComparer: comparator // Sorting will be done in firebase instead of here
 })
 
 export const inititalState = adapter.getInitialState({
   loading: false,
   fbError: false,
+  allIssuesLastFetched: 0
 });
 
 
@@ -75,7 +77,37 @@ export const issueEntityReducer = createReducer(
       fbError: true,
       fbErrorMsg: errorMsg
     }
+  }),
+
+  on(issueActions.loadAllIssuesSuccess, (state, {data, updatedTime}) => {
+    return adapter.setAll(data, {
+      ...state,
+      allIssuesLastFetched: updatedTime,
+      loading: false,
+      fbError: true,
+      fbErrorMsg: null
+    })
+  }),
+
+  on(issueActions.loadAllIssuesStart, (state, {url}) => {
+    return {
+      ...state,
+      loading: true,
+      fbError: false,
+      fbErrorMsg: null
+    }
+  }),
+
+  on(issueActions.loadAllIssuesFailed, (state, {errMsg}) => {
+    return {
+      ...state,
+      loading: false,
+      fbError: true,
+      fbErrorMsg: errMsg
+    }
   })
+
+
 )
 
 export function issuesEntityReducer(state: IssueEntityState | undefined, action: Action) {
