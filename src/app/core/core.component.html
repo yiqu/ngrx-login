@@ -1,5 +1,6 @@
 <div class="container mb-3">
-  <div class="row border-grey-light my-3 py-1">
+
+  <div class="row my-3 py-1">
     <div class="col-sm-12 actions">
       <div class="input-parent">
         <mat-form-field>
@@ -18,6 +19,11 @@
     </div>
   </div>
 
-  <app-core-issue-creator *ngIf="showIssueCreatePane"></app-core-issue-creator>
+  <div class="row mb-3">
+    <div class="col-sm-12">
+      <app-core-issue-creator *ngIf="showIssueCreatePane"></app-core-issue-creator>
+    </div>
+  </div>
+
   <app-core-issue-display></app-core-issue-display>
 </div>

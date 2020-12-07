@@ -1,4 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { CoreService } from 'src/app/shared/services/core.service';
+
+const ISSUES_PATH: string = "issues";
 
 @Component({
   selector: 'app-core-issue-display',
@@ -7,17 +11,18 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 })
 export class IssueDisplayComponent implements OnInit, OnDestroy {
 
-  someHtml = "<b>HELLO</b> <br>Break line</br> <br>Break line</br>";
+  compDest$: Subject<any> = new Subject<any>();
 
-  constructor() {
+  constructor(public cs: CoreService) {
 
   }
 
   ngOnInit() {
-
+    this.cs.getAllIssues(ISSUES_PATH);
   }
 
   ngOnDestroy() {
-
+    this.compDest$.next();
+    this.compDest$.complete();
   }
 }

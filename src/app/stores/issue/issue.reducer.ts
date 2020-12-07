@@ -41,13 +41,13 @@ export const issueEntityReducer = createReducer(
     });
   }),
 
-  on(issueActions.createIssueSuccess, (state, {dateFinished}) => {
-    return {
+  on(issueActions.createIssueSuccess, (state, {data, dateFinished}) => {
+    return adapter.updateOne(data, {
       ...state,
-      loading: false,
+      loading: true,
       fbError: false,
       fbErrorMsg: null
-    }
+    })
   }),
 
   on(issueActions.createIssueFailed, (state, {data, errMsg}) => {
@@ -57,6 +57,24 @@ export const issueEntityReducer = createReducer(
       fbError: true,
       fbErrorMsg: errMsg
     })
+  }),
+
+  on(issueActions.createIssueCleanupSuccess, (state) => {
+    return {
+      ...state,
+      loading: false,
+      fbError: false,
+      fbErrorMsg: null
+    }
+  }),
+
+  on(issueActions.createIssueCleanupFailed, (state, {errorMsg}) => {
+    return {
+      ...state,
+      loading: false,
+      fbError: true,
+      fbErrorMsg: errorMsg
+    }
   })
 )
 

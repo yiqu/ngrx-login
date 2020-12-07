@@ -31,7 +31,9 @@ export class IssueCreatorComponent implements OnInit, OnDestroy {
       priority: {
         id: PriorityLevel.Low,
         display: "Low"
-      }
+      },
+      created: false,
+      loading: false
     };
   }
 
@@ -70,7 +72,6 @@ export class IssueCreatorComponent implements OnInit, OnDestroy {
     if (this.issueFg.valid) {
       const data = this.createFullIssueObject(issueVal);
       const docPath: string = ISSUE_PATH + "/" + data.id;
-      console.log("valid, saving.....", data);
       this.cs.addNewIssue(data, docPath);
     }
   }
@@ -79,7 +80,9 @@ export class IssueCreatorComponent implements OnInit, OnDestroy {
     return {
       ...i,
       dateCreated: new Date().getTime(),
-      id: this.cs.createDocId()
+      id: this.cs.createDocId(),
+      created: false,
+      loading: true
     };
   }
 
