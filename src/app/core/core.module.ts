@@ -14,6 +14,7 @@ import { SingleIssueComponent } from './issue-display/issue/issue.component';
 import { PipeBundleModule } from '../shared/pipes/pipe-bundle.module';
 import { IssueDetailComponent } from './issue-detail/issue-detail.component';
 import { AllIssuesLandingComponent } from './all/all.component';
+import { SharedBudleModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -21,11 +22,12 @@ import { AllIssuesLandingComponent } from './all/all.component';
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    CoreRoutingModule,
     MaterialModuleBundle,
     StoreModule.forFeature("issues", fromIssueReducer.issuesEntityReducer),
     EffectsModule.forFeature(fromIssueEffects.issuesEffects),
-    PipeBundleModule
+    PipeBundleModule,
+    SharedBudleModule,
+    CoreRoutingModule,
   ],
 
   exports: [

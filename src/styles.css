@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 /* @import '@angular/material/prebuilt-themes/deeppurple-amber.css'; */
-@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Nerko+One&family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Nerko+One&family=Roboto:wght@100;400;700&display=swap');
 
 body {
   /* margin: 0;  */
@@ -87,6 +87,11 @@ a {
   border-radius: 50%;
 }
 
+.v-center {
+  display: flex;
+  align-items: center;
+}
+
 /**
 Used to sticky button rows, etc
 **/
@@ -156,3 +161,29 @@ app-side-nav .mat-list-item-content {
 .issue-closed {
   border-left: 3px solid #d9d9d9;
 }
+
+mat-list-item mat-icon {
+  cursor: default;
+}
+
+.loading-bg {
+  background-color: #f3f3f3;
+  background-image: linear-gradient(
+    to right,
+    transparent 33%,
+    rgb(143 167 220 / 30%) 50%,
+    transparent 66%
+  );
+  background-size:300% 100%;
+  animation: shine 1s infinite;
+}
+
+@keyframes shine {
+  0% {
+    background-position: right;
+  }
+  /*100% {
+    background-position: left; it's the default value, no need to define it
+  }*/
+}
+

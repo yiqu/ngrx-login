@@ -1,16 +1,14 @@
 .creator-card {
-  max-width: 700px;
+ width: 100%;
 }
 
 .creator-header-image {
-  background-image: url('/assets/banner/resolved.png');
+  background-image: url('/assets/banner/resolved2.png');
   background-size: 95%;
   background-repeat: no-repeat;
 }
 
 .issue-form {
-  min-width: 150px;
-  max-width: 500px;
   width: 100%;
 }
 
@@ -38,3 +36,6 @@ mat-card mat-card-subtitle {
   justify-content: space-between;
 }
 
+.btn.btn-info {
+  font-family: 'Roboto';
+}

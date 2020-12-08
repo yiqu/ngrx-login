@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
-import { tap, concatMap, switchMap, map, mergeMap, catchError } from 'rxjs/operators';
+import { tap, concatMap, switchMap, map, mergeMap, catchError, exhaustMap } from 'rxjs/operators';
 import { IIssue } from 'src/app/shared/models/general.model';
 import { CrudService } from 'src/app/shared/services/crud.service';
 import { ToasterService } from 'src/app/shared/services/toaster.service';
@@ -90,6 +90,103 @@ export class IssueEffects {
     );
   });
 
+  closeAIssue$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromIssueActions.closeOneIssueStart),
+      exhaustMap((res) => {
+        const d: IIssue = res.data;
+        const update: Update<IIssue> = {
+          id: d.id,
+          changes: {
+            open: false,
+            loading: true
+          }
+        };
+        return this.cs.updatePartialDocument<IIssue>(update, "issues/" + d.id).then(
+          (res) => {
+            return fromIssueActions.closeOneIssueSuccess({data: d});
+          },
+          (rej) => {
+            const authErrMsg = fromFirebaseUtils.getFirebaseErrorMsg(rej);
+            return fromIssueActions.closeOneIssueFailure({data: d, errMsg: authErrMsg});
+          }
+        )
+      })
+    );
+  });
+
+  closeAIssueSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromIssueActions.closeOneIssueSuccess),
+      mergeMap((res) => {
+        const d: IIssue = res.data;
+        const update: Update<IIssue> = {
+          id: d.id,
+          changes: {
+            loading: false
+          }
+        };
+        return this.cs.updatePartialDocument<IIssue>(update, "issues/" + d.id).then(
+          (res) => {
+            this.ts.getSnackbar("Issue closed successfully!");
+          },
+          (rej) => {
+            const authErrMsg = fromFirebaseUtils.getFirebaseErrorMsg(rej);
+            this.ts.getError("Error occured closing issue. " + authErrMsg);
+          }
+        )
+      })
+    );
+  }, {dispatch: false});
+
+  openAIssue$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromIssueActions.openOneIssueStart),
+      exhaustMap((res) => {
+        const d: IIssue = res.data;
+        const update: Update<IIssue> = {
+          id: d.id,
+          changes: {
+            open: true,
+            loading: true
+          }
+        };
+        return this.cs.updatePartialDocument<IIssue>(update, "issues/" + d.id).then(
+          (res) => {
+            return fromIssueActions.openOneIssueSuccess({data: d});
+          },
+          (rej) => {
+            const authErrMsg = fromFirebaseUtils.getFirebaseErrorMsg(rej);
+            return fromIssueActions.openOneIssueFailure({data: d, errMsg: authErrMsg});
+          }
+        )
+      })
+    );
+  });
+
+  openAIssueSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromIssueActions.openOneIssueSuccess),
+      mergeMap((res) => {
+        const d: IIssue = res.data;
+        const update: Update<IIssue> = {
+          id: d.id,
+          changes: {
+            loading: false
+          }
+        };
+        return this.cs.updatePartialDocument<IIssue>(update, "issues/" + d.id).then(
+          (res) => {
+            this.ts.getSnackbar("Issue reopened successfully!");
+          },
+          (rej) => {
+            const authErrMsg = fromFirebaseUtils.getFirebaseErrorMsg(rej);
+            this.ts.getError("Error occured closing issue. " + authErrMsg);
+          }
+        )
+      })
+    );
+  }, {dispatch: false});
 
 
   onSuccessfullyCleanup$ = createEffect(() => {

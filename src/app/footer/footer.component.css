@@ -1,0 +1,23 @@
+.footer-img {
+  height: 35px;
+}
+
+.app-footer2 .img-parent {
+  padding-top: 9px;
+}
+
+.app-footer2 a {
+  color: #bbb;
+}
+
+.app-footer2 {
+  font-size: 12px;
+  font-weight: 700;
+  background-color: #022144;
+  padding: 80px 0 80px;
+  color: #fff;
+}
+
+.logo-txt {
+  font-size: 20px;
+}

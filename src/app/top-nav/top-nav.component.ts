@@ -5,6 +5,7 @@ import { takeUntil, take } from 'rxjs/operators';
 import { headShakeAnimation, rotateAnimation, tadaAnimation } from 'angular-animations';
 import { MenuItem } from '../shared/models/nav-item.model';
 import { environment } from '../../environments/environment';
+import { CoreService } from '../shared/services/core.service';
 
 const defaultProfileImg: string = "assets/user/default-user5.png";
 
@@ -20,7 +21,7 @@ const defaultProfileImg: string = "assets/user/default-user5.png";
 })
 export class TopNavComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  headerTitle: string = "Issue Tracker";
+  headerTitle: string = "Issue Manager";
   compDest$: Subject<any> = new Subject<any>();
   logoShakeState: boolean = false;
   leftNavMenuState: boolean = false;
@@ -44,7 +45,6 @@ export class TopNavComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onLogoClick() {
-    this.logoShakeState = !this.logoShakeState;
   }
 
   onMenuClick() {

@@ -1,0 +1,36 @@
+.action-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 400;
+  min-height: 35px;
+}
+
+.count {
+  font-size: 32px;
+  color: #6a737d;
+  min-height: 35px;
+  font-weight: 100;
+}
+
+.meta {
+  font-size: 14px;
+  color: #586069;
+  display: flex;
+}
+
+.desc {
+  font-size: 23px;
+}
+
+mat-chip.issue-open {
+  background-color: #28a745 !important;
+}
+
+mat-chip.issue-closed {
+  background-color: #888 !important;
+}
+

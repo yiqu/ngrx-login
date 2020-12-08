@@ -8,6 +8,8 @@ import * as fromIssueActions from '../../stores/issue/issue.actions';
 import * as fromIssueSelectors from '../../stores/issue/issue.selectors';
 import { IIssue } from '../models/general.model';
 
+const ISSUES_PATH: string = "issues";
+
 @Injectable({
   providedIn: 'root'
 })
@@ -23,6 +25,7 @@ export class CoreService {
     (id: string | undefined): Observable<number | undefined> => this.store.select(fromIssueSelectors.getIssueNumber(id));
   public getIssueById = (id: string) => this.store.select(fromIssueSelectors.selectIssueById(id));
   public getIssueByParamId = (id: string) => this.store.select(fromIssueSelectors.getIssueByParamId(id));
+  public issueOverallLoading$: Observable<boolean> = this.store.select(fromIssueSelectors.getIssuesOverallLoading);
 
   currentIssueCounter: number = 1;
 
@@ -37,8 +40,17 @@ export class CoreService {
     this.store.dispatch(fromUiActions.toggleNewIssuePane({open: status}));
   }
 
-  getAllIssues(url: string) {
-    this.store.dispatch(fromIssueActions.loadAllIssuesStart({url: url}));
+  getAllIssues() {
+    this.store.dispatch(fromIssueActions.loadAllIssuesStart({url: ISSUES_PATH}));
+  }
+
+  toggleOpenCloseIssue(i: IIssue) {
+    if (i.open) {
+      this.store.dispatch(fromIssueActions.closeOneIssueStart({data: i}));
+    } else {
+      this.store.dispatch(fromIssueActions.openOneIssueStart({data: i}));
+    }
+
   }
 
 }

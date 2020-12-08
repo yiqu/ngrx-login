@@ -40,3 +40,29 @@ export class OpenStatusToCssClassPipe implements PipeTransform {
     return value ? "issue-open" : "issue-closed";
   }
 }
+
+@Pipe({
+  name: 'createdToCssClass',
+  pure: true
+})
+export class CreatedStatusToCssClassPipe implements PipeTransform {
+
+  @memo()
+  transform(value: boolean | undefined): any {
+    return value ? "" : "loading-bg";
+  }
+}
+
+@Pipe({
+  name: 'issueOpenStatusDisplay',
+  pure: true
+})
+export class issueOpenStatusPipe implements PipeTransform {
+
+  transform(value: boolean | undefined, textMode: boolean): any {
+    if (value) {
+      return textMode ? 'opened' : 'open';
+    }
+    return textMode ? 'closed' : 'closed';
+  }
+}

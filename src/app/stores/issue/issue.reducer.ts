@@ -1,4 +1,4 @@
-import { EntityState, createEntityAdapter } from '@ngrx/entity';
+import { EntityState, createEntityAdapter, Update } from '@ngrx/entity';
 import { createReducer, on, Action } from '@ngrx/store';
 import { IIssue, Issue } from 'src/app/shared/models/general.model';
 import * as issueActions from './issue.actions';
@@ -84,7 +84,7 @@ export const issueEntityReducer = createReducer(
       ...state,
       allIssuesLastFetched: updatedTime,
       loading: false,
-      fbError: true,
+      fbError: false,
       fbErrorMsg: null
     })
   }),
@@ -105,7 +105,108 @@ export const issueEntityReducer = createReducer(
       fbError: true,
       fbErrorMsg: errMsg
     }
-  })
+  }),
+
+  on(issueActions.closeOneIssueStart, (state, {data}) => {
+    const update: Update<IIssue> = {
+      id: data.id,
+      changes: {
+        open: false,
+        loading: true
+      }
+    };
+
+    return adapter.updateOne(update, {
+      ...state,
+      loading: true,
+      fbError: false,
+      fbErrorMsg: null
+    })
+  }),
+
+  on(issueActions.closeOneIssueSuccess, (state, {data}) => {
+    const update: Update<IIssue> = {
+      id: data.id,
+      changes: {
+        loading: false
+      }
+    };
+
+    return adapter.updateOne(update, {
+      ...state,
+      loading: false,
+      fbError: false,
+      fbErrorMsg: null
+    })
+  }),
+
+  on(issueActions.closeOneIssueFailure, (state, {data, errMsg}) => {
+    const update: Update<IIssue> = {
+      id: data.id,
+      changes: {
+        open: true,
+        loading: false
+      }
+    };
+
+    return adapter.updateOne(update, {
+      ...state,
+      loading: false,
+      fbError: true,
+      fbErrorMsg: errMsg
+    })
+  }),
+
+  on(issueActions.openOneIssueStart, (state, {data}) => {
+    const update: Update<IIssue> = {
+      id: data.id,
+      changes: {
+        open: true,
+        loading: true
+      }
+    };
+
+    return adapter.updateOne(update, {
+      ...state,
+      loading: true,
+      fbError: false,
+      fbErrorMsg: null
+    })
+  }),
+
+  on(issueActions.openOneIssueSuccess, (state, {data}) => {
+    const update: Update<IIssue> = {
+      id: data.id,
+      changes: {
+        loading: false
+      }
+    };
+
+    return adapter.updateOne(update, {
+      ...state,
+      loading: false,
+      fbError: false,
+      fbErrorMsg: null
+    })
+  }),
+
+  on(issueActions.openOneIssueFailure, (state, {data, errMsg}) => {
+    const update: Update<IIssue> = {
+      id: data.id,
+      changes: {
+        open: false,
+        loading: false
+      }
+    };
+
+    return adapter.updateOne(update, {
+      ...state,
+      loading: false,
+      fbError: true,
+      fbErrorMsg: errMsg
+    })
+  }),
+
 
 
 )

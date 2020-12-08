@@ -1,4 +1,6 @@
 <mat-list>
+
+  <!-- Header list item, showing closed and open -->
   <mat-list-item class="issues-header">
     <div mat-line class="d-flex">
       <mat-icon class="open">error_outline</mat-icon>
@@ -10,6 +12,7 @@
     </div>
   </mat-list-item>
 
+  <!-- Loop through the issues -->
   <ng-container *ngIf="(this.cs.getAllIssues$ | async) as allIssues">
     <ng-container *ngFor="let issue of allIssues">
       <app-core-issue-display-issue [issue]="issue"></app-core-issue-display-issue>

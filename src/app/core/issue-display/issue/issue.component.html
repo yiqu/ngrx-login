@@ -1,11 +1,18 @@
 <ng-container *ngIf="(issue) as currentIssue">
-  <mat-list-item class="issue-border" [class]="currentIssue?.open | openToCssClass">
+  <mat-list-item class="issue-border"
+    [ngClass]="{'issue-open': currentIssue?.open, 'issue-closed': !currentIssue?.open, 'loading-bg': !currentIssue?.created}">
 
-    <mat-icon mat-list-icon [class]="currentIssue?.priority?.id | priorToCssClass">error_outline</mat-icon>
+    <mat-icon mat-list-icon [class]="currentIssue?.priority?.id | priorToCssClass"
+      [title]="'Priority: ' + currentIssue?.priority?.display">error_outline</mat-icon>
 
     <div mat-line class="issue-title">
-      <div (click)="onIssueClick()" class="text">{{currentIssue?.title}}</div>
-      <div *ngIf="currentIssue?.loading"><mat-spinner color="primary" diameter="20"></mat-spinner></div>
+      <div (click)="onIssueClick()" class="text">
+        {{currentIssue?.title}} {{currentIssue?.created ? '':'(creating, please wait...)'}}
+      </div>
+      <div *ngIf="currentIssue?.loading">
+        <mat-spinner color="primary" diameter="20"></mat-spinner>
+        Loading...
+      </div>
     </div>
 
     <div mat-line class="issue-desc mb-1"> {{currentIssue?.description}} </div>

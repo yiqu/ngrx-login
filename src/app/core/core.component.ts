@@ -18,6 +18,7 @@ export class CoreComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.cs.getAllIssues();
   }
 
   ngOnDestroy() {

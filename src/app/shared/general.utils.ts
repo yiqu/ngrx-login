@@ -32,3 +32,13 @@ export const PRIORITY_LIST = [
     display: "Low"
   }
 ]
+
+export function scrollToElementById(id: string) {
+  let top = document.getElementById(id);
+  if (top) {
+    setTimeout(() => {
+      top?.scrollIntoView({block: "end"});
+      top = null;
+    }, 10)
+  }
+}

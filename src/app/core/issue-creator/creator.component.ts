@@ -76,6 +76,7 @@ export class IssueCreatorComponent implements OnInit, OnDestroy {
       const data = this.createFullIssueObject(issueVal);
       const docPath: string = ISSUE_PATH + "/" + data.id;
       this.cs.addNewIssue(data, docPath);
+      this.onIssueCancel();
     }
   }
 

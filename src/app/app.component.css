@@ -1,11 +1,3 @@
-.app-footer2 {
-  font-size: 12px;
-  font-weight: 700;
-  background-color: #022144;
-  padding: 80px 0 40px;
-  color: #fff;
-}
-
 .app-core {
   min-height: 80vh;
 }
@@ -31,21 +23,4 @@
   /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
      `<body>` to be our scrolling element for mobile layouts. */
   flex: 1;
-}
-
-footer.bottom-links {
-  background-color: #022144;
-  padding: 80px 0 40px;
-}
-
-.footer-img {
-  height: 35px;
-}
-
-.app-footer2 .img-parent {
-  padding-top: 9px;
-}
-
-.app-footer2 a {
-  color: #bbb;
 }

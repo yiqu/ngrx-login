@@ -26,6 +26,16 @@ export const selectTotalIssueCount = createSelector(
   fromIssueReducer.adapter.getSelectors().selectTotal
 );
 
+export const selectTotalIssueCount2 = createSelector(
+  selectIssueState,
+  (state) => {
+    if (state.ids) {
+      return state.ids.length;
+    }
+    return 0;
+  }
+);
+
 export const selectIssueById = (id: string | undefined) => createSelector(
   selectIssueEntities,
   (allEntities): IIssue | undefined => {
@@ -69,5 +79,12 @@ export const getIssueByParamId = (id: string) => createSelector(
       return state[issueId];
     }
     return undefined;
+  }
+)
+
+export const getIssuesOverallLoading = createSelector(
+  selectIssueState,
+  (state): boolean => {
+    return state.loading;
   }
 )

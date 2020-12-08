@@ -1,6 +1,6 @@
 <!-- <div class="row">
   <div class="col-lg-12"> -->
-<mat-card class="creator-card">
+<mat-card class="creator-card mat-elevation-z5">
   <mat-card-header>
     <div mat-card-avatar class="creator-header-image"></div>
     <mat-card-title class="if f-w-700">
@@ -9,7 +9,7 @@
           Add Issue {{issueFg.pristine ? '' : '*'}}
         </div>
         <div>
-          <button mat-stroked-button (click)="onIssueCancel()">Cancel</button>
+          <button type="button" class="btn btn-info" (click)="onIssueCancel()">Cancel</button>
         </div>
       </div>
     </mat-card-title>
@@ -38,8 +38,8 @@
     </div>
   </mat-card-content>
   <mat-card-actions class="actions">
-    <button mat-flat-button color="primary" class="neko fs-18" [disabled]="issueFg.invalid" (click)="onSubmit()">Submit new issue</button>
-    <button mat-stroked-button class="neko fs-18" *ngIf="!issueFg.pristine" (click)="onFormReset()">Reset</button>
+    <button type="button" class="btn btn-success" [disabled]="issueFg.invalid" (click)="onSubmit()">Submit new issue</button>
+    <button type="button" class="btn btn-info" *ngIf="!issueFg.pristine" (click)="onFormReset()">Reset</button>
   </mat-card-actions>
 </mat-card>
   <!-- </div>

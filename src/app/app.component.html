@@ -14,22 +14,9 @@
       <div class="app-core">
         <router-outlet></router-outlet>
       </div>
-      <mat-toolbar class="app-footer2">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-2">
-              <div class="img-parent">
-                <img src="assets/banner/resolved.png"
-                class="footer-img d-inline-block" alt="logo">
-              </div>
-            </div>
-            <div class="col-lg-10">
-              <div class="mr-3">{{footerTitle}}</div>
-              <a [href]="myUrl" target="_blank">Come visit me</a>
-            </div>
-          </div>
-        </div>
-      </mat-toolbar>
+
+      <app-footer></app-footer>
+
     </mat-sidenav-content>
   </mat-sidenav-container>
 

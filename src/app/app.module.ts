@@ -16,6 +16,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { appEffects } from './stores/global/app.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ToastrModule } from 'ngx-toastr';
+import { FooterModule } from './footer/footer.module';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { ToastrModule } from 'ngx-toastr';
     MaterialModuleBundle,
     TopNavModule,
     SideNavModule,
+    FooterModule,
     ToastrModule.forRoot({
       timeOut: 3000,
       extendedTimeOut: 1000,
