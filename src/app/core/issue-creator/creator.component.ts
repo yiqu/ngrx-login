@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IIssue, IssuePriority, PriorityLevel } from 'src/app/shared/models/general.model';
+import { CoreService } from 'src/app/shared/services/core.service';
 import { CrudService } from 'src/app/shared/services/crud.service';
 import * as gUtils from '../../shared/general.utils';
 
@@ -20,7 +21,7 @@ export class IssueCreatorComponent implements OnInit, OnDestroy {
   formInitValue: IIssue;
 
   constructor(private fb: FormBuilder, private cs: CrudService, private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute, public cos: CoreService) {
     this.priorityList = gUtils.PRIORITY_LIST;
     this.issueFg = new FormGroup({});
 
@@ -34,7 +35,8 @@ export class IssueCreatorComponent implements OnInit, OnDestroy {
       },
       created: false,
       loading: false,
-      open: true
+      open: true,
+      issueNumber: this.cos.currentIssueCounter
     };
   }
 
@@ -84,7 +86,8 @@ export class IssueCreatorComponent implements OnInit, OnDestroy {
       id: this.cs.createDocId(),
       created: false,
       loading: true,
-      open: true
+      open: true,
+      issueNumber: this.cos.currentIssueCounter
     };
   }
 

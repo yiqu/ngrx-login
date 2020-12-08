@@ -2,9 +2,11 @@
   <mat-list-item class="issues-header">
     <div mat-line class="d-flex">
       <mat-icon class="open">error_outline</mat-icon>
-      <div>10 Open</div>
+      <div [title]="(this.cs.totalIssueCount$ | async) + ' total issues'">
+        {{this.cs.openIssueCount$ | async}} Open
+      </div>
       <mat-icon class="closed">check_circle_outline</mat-icon>
-      <div>5 Closed</div>
+      <div> {{this.cs.closedIssueCount$ | async}} Closed</div>
     </div>
   </mat-list-item>
 

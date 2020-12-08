@@ -22,11 +22,12 @@ export interface IIssue {
 
   created: boolean;
   loading: boolean;
+  issueNumber: number
 }
 
 export class Issue implements IIssue {
   constructor(public id: string, public title: string, public description: string, public dateCreated: number,
-    public priority: IssuePriority, public author: string,
+    public priority: IssuePriority, public author: string, public issueNumber: number,
     public created: boolean, public loading: boolean, public open: boolean,
     public lastEdited?: number, public reactions?: number) {
   }

@@ -1,0 +1,19 @@
+<div class="row my-3 py-1">
+  <div class="col-lg-12">
+    <button mat-stroked-button color="primary" (click)="goBackToAll()">Back</button>
+  </div>
+</div>
+<hr>
+
+<ng-container *ngIf="issue">
+  <div class="row">
+    <div class="col-lg-12">
+      {{issue?.title}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      {{issue?.description}}
+    </div>
+  </div>
+</ng-container>

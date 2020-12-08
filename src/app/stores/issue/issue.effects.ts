@@ -10,6 +10,8 @@ import { Update } from '@ngrx/entity';
 import { DocumentChangeAction } from '@angular/fire/firestore';
 import { throwError } from 'rxjs';
 import { FirebasePromiseError } from 'src/app/shared/models/firebase.model';
+import * as firebase from 'firebase/app'
+
 
 @Injectable()
 export class IssueEffects {

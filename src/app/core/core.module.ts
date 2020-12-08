@@ -12,6 +12,8 @@ import { EffectsModule } from '@ngrx/effects';
 import * as fromIssueEffects from '../stores/issue/issue.effects';
 import { SingleIssueComponent } from './issue-display/issue/issue.component';
 import { PipeBundleModule } from '../shared/pipes/pipe-bundle.module';
+import { IssueDetailComponent } from './issue-detail/issue-detail.component';
+import { AllIssuesLandingComponent } from './all/all.component';
 
 
 @NgModule({
@@ -34,7 +36,9 @@ import { PipeBundleModule } from '../shared/pipes/pipe-bundle.module';
     CoreComponent,
     IssueDisplayComponent,
     IssueCreatorComponent,
-    SingleIssueComponent
+    SingleIssueComponent,
+    IssueDetailComponent,
+    AllIssuesLandingComponent
   ],
 
   providers: [

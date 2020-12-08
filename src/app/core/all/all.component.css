@@ -1,0 +1,23 @@
+.row .actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.actions .btn-parent {
+  display: flex;
+  align-items: center;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.input-parent {
+  min-width: 500px;
+}
+
+button.issue {
+  background-color: #2ea44f;
+  color: #fff;
+}
+

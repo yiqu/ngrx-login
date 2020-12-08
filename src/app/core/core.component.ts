@@ -12,28 +12,12 @@ import { CoreService } from '../shared/services/core.service';
 export class CoreComponent implements OnInit, OnDestroy {
 
   compDest$: Subject<any> = new Subject<any>();
-  showIssueCreatePane: boolean = false;
 
   constructor(private cs: CoreService, private router: Router, private route: ActivatedRoute) {
 
   }
 
   ngOnInit() {
-    this.cs.getQueryParamById$.pipe(
-      takeUntil(this.compDest$)
-    ).subscribe((res) => {
-      this.showIssueCreatePane = !!res;
-    })
-  }
-
-  onSearch() {
-
-  }
-
-  onNewIssue() {
-    this.router.navigate(['./'], {queryParams: {
-      newIssuePane: "open"
-    }});
   }
 
   ngOnDestroy() {

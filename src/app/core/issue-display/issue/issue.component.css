@@ -4,7 +4,7 @@
 }
 
 .mat-line.issue-desc {
-  color: #888;
+  color: #666666;
   font-size: 13px !important;
   line-height: 22px;
 }
@@ -19,4 +19,10 @@
 
 .mat-line.issue-meta {
   font-size: 13px !important;
+  color: #888;
+}
+
+.mat-line.issue-title .text:hover {
+  cursor: pointer;
+  color: #3333ff;
 }

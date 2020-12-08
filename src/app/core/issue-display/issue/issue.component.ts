@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IIssue } from 'src/app/shared/models/general.model';
+import { CoreService } from 'src/app/shared/services/core.service';
 
 @Component({
   selector: 'app-core-issue-display-issue',
@@ -12,9 +14,15 @@ export class SingleIssueComponent implements OnInit {
   @Input()
   issue: IIssue | undefined;
 
-  constructor() {
-
+  constructor(public cs: CoreService, private router: Router, private route: ActivatedRoute) {
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
+
+  onIssueClick() {
+    if (this.issue?.id) {
+      this.router.navigate(['../', this.issue?.id], {relativeTo: this.route});
+    }
+  }
 }

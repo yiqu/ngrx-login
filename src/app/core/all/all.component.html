@@ -1,0 +1,26 @@
+<div class="row my-3 py-1">
+  <div class="col-sm-12 actions">
+    <div class="input-parent">
+      <mat-form-field>
+        <mat-label>Search issues..</mat-label>
+        <input matInput placeholder="NgRx upgrade">
+        <button mat-button matSuffix mat-icon-button (click)="onSearch()">
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+    <div class="btn-parent">
+      <div>
+        <button mat-flat-button class="issue" (click)="onNewIssue()">New issue</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mb-3">
+  <div class="col-sm-12">
+    <app-core-issue-creator *ngIf="showIssueCreatePane"></app-core-issue-creator>
+  </div>
+</div>
+
+<app-core-issue-display></app-core-issue-display>
