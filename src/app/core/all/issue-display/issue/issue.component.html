@@ -6,11 +6,11 @@
       [title]="'Priority: ' + currentIssue?.priority?.display">error_outline</mat-icon>
 
     <div mat-line class="issue-title">
-      <div (click)="onIssueClick()" class="text">
-        {{currentIssue?.title}} {{currentIssue?.created ? '':'(creating, please wait...)'}}
+      <div mat-line (click)="onIssueClick()" class="text">
+        {{currentIssue?.title}} {{currentIssue?.created ? '':'(creating...)'}}
       </div>
-      <div *ngIf="currentIssue?.loading">
-        <mat-spinner color="primary" diameter="20"></mat-spinner>
+      <div *ngIf="currentIssue?.loading" class="d-flex">
+        <mat-spinner color="primary" diameter="20" class="mr-2"></mat-spinner>
         Loading...
       </div>
     </div>
@@ -18,7 +18,7 @@
     <div mat-line class="issue-desc mb-1"> {{currentIssue?.description}} </div>
 
     <div mat-line class="issue-meta" *ngIf="currentIssue?.created">
-      #{{ this.cs.getIssueCounterNumber(currentIssue?.id) | async}} opened
+      #{{ this.cs.getIssueCounterNumber(currentIssue?.id) | async}} created
       {{currentIssue?.dateCreated | dateDisplay:'FROMNOW'}}
       by {{currentIssue?.author}}
     </div>

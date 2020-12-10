@@ -21,6 +21,10 @@ const OPEN_ISSUE_START: string = "[Issue Detail/API] Open a issue start";
 const OPEN_ISSUE_SUCCESS: string = "[Issue Detail/API] Successfully opened a issue";
 const OPEN_ISSUE_FAILED: string = "[Issue Detail/API] Open a issue faialed";
 
+const SELECT_ISSUE: string = "[Issue Detail/View Edit] Set selected issue ID";
+
+const TOGGLE_ISSUE_EDIT: string = "[Issue Detail/Toggle Edit] Toggle issue edit mode";
+
 export const createIssueStart = createAction(
   CREATE_ISSUE_START,
   props<{data: IIssue, url: string}>()
@@ -88,4 +92,14 @@ export const openOneIssueSuccess = createAction(
 export const openOneIssueFailure = createAction(
   OPEN_ISSUE_FAILED,
   props<{data: IIssue, errMsg: string}>()
+)
+
+export const setSelectedIssueId = createAction(
+  SELECT_ISSUE,
+  props<{issueId: string | null}>()
+)
+
+export const toggleIssueEditMode = createAction(
+  TOGGLE_ISSUE_EDIT,
+  props<{inEditMode: boolean}>()
 )

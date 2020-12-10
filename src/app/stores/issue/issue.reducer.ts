@@ -8,6 +8,8 @@ export interface IssueEntityState extends EntityState<IIssue> {
   fbError: boolean;
   fbErrorMsg: string | null;
   allIssuesLastFetched: number;
+  selectedIssueId: string | undefined;
+  issueEditMode: boolean;
 }
 
 export function selectId(i: IIssue) {
@@ -27,7 +29,7 @@ export const adapter = createEntityAdapter<IIssue>({
 export const inititalState = adapter.getInitialState({
   loading: false,
   fbError: false,
-  allIssuesLastFetched: 0
+  allIssuesLastFetched: 0,
 });
 
 
@@ -207,7 +209,19 @@ export const issueEntityReducer = createReducer(
     })
   }),
 
+  on(issueActions.setSelectedIssueId, (state, {issueId}) => {
+    return {
+      ...state,
+      selectedIssueId: issueId
+    }
+  }),
 
+  on(issueActions.toggleIssueEditMode, (state, {inEditMode}) => {
+    return {
+      ...state,
+      issueEditMode: inEditMode
+    }
+  })
 
 )
 

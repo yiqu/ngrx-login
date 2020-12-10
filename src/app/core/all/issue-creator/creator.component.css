@@ -17,9 +17,9 @@
 }
 
 .priority-val {
-  font-family: 'Nerko One', cursive;
-  font-size: 19px;
-  color: #999;
+  /* font-family: 'Nerko One', cursive; */
+  font-size: 15px;
+  font-weight: 700;
 }
 
 .actions {
@@ -38,4 +38,8 @@ mat-card mat-card-subtitle {
 
 .btn.btn-info {
   font-family: 'Roboto';
+}
+
+mat-card-subtitle div {
+  font-size: 15px;
 }

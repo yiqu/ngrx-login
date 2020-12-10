@@ -19,7 +19,7 @@
 
 <div *ngIf="showIssueCreatePane" class="row my-3">
   <div class="offset-lg-1 col-lg-10">
-    <app-core-issue-creator></app-core-issue-creator>
+    <app-core-issue-creator [issueData]="newIssue"></app-core-issue-creator>
   </div>
 </div>
 

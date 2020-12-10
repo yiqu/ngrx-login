@@ -25,7 +25,10 @@ export class CoreService {
     (id: string | undefined): Observable<number | undefined> => this.store.select(fromIssueSelectors.getIssueNumber(id));
   public getIssueById = (id: string) => this.store.select(fromIssueSelectors.selectIssueById(id));
   public getIssueByParamId = (id: string) => this.store.select(fromIssueSelectors.getIssueByParamId(id));
+  public getIssueBySelectedId$: Observable<IIssue | undefined> = this.store.select(fromIssueSelectors.getIssueBySelectedId);
   public issueOverallLoading$: Observable<boolean> = this.store.select(fromIssueSelectors.getIssuesOverallLoading);
+  public getIssueEditMode$: Observable<boolean> = this.store.select(fromIssueSelectors.getIssueEditMode);
+
 
   currentIssueCounter: number = 1;
 
@@ -50,7 +53,14 @@ export class CoreService {
     } else {
       this.store.dispatch(fromIssueActions.openOneIssueStart({data: i}));
     }
+  }
 
+  setSelectedIssueId(id: string | null) {
+    this.store.dispatch(fromIssueActions.setSelectedIssueId({issueId: id}));
+  }
+
+  toggleIssueEditMode(mode: boolean) {
+    this.store.dispatch(fromIssueActions.toggleIssueEditMode({inEditMode: mode}));
   }
 
 }

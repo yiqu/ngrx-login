@@ -75,7 +75,6 @@ export class IssueEffects {
           (res) => {
             let allIssues: IIssue[] = [];
             const currentTime: number = new Date().getTime();
-            console.log(res.docs.length)
             res.docs.forEach((d) => {
               allIssues.push(d.data());
             });

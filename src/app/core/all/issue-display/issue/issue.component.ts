@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IIssue } from 'src/app/shared/models/general.model';
-import { CoreService } from 'src/app/shared/services/core.service';
+import { IIssue } from '../../../../shared/models/general.model';
+import { CoreService } from '../../../../shared/services/core.service';
 
 @Component({
   selector: 'app-core-issue-display-issue',

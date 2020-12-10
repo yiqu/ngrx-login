@@ -21,8 +21,8 @@ import { DialogConfirmComponent } from 'src/app/shared/dialog/dialog.component';
 export class IssueDetailComponent implements OnInit, OnDestroy {
 
   compDest$: Subject<any> = new Subject<any>();
-  issueId: string | undefined = undefined;
-  issue: IIssue | undefined= undefined;
+  issue: IIssue | undefined = undefined;
+  editMode: boolean = false;
 
   constructor(private router: Router, private route: ActivatedRoute, public cs: CoreService,
     private store: Store<AppState>, private crs: CrudService, public dialog: MatDialog) {
@@ -30,17 +30,30 @@ export class IssueDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.cs.getIssueByParamId("id").pipe(
+    this.cs.getIssueBySelectedId$.pipe(
       takeUntil(this.compDest$)
     ).subscribe((res) => {
       this.issue = res;
     });
 
     fromUtils.scrollToElementById("action-row");
+
+    this.route.paramMap.pipe(
+      takeUntil(this.compDest$)
+    ).subscribe((res) => {
+      this.cs.setSelectedIssueId(res.get("id"));
+    });
+
+    this.cs.getIssueEditMode$.pipe(
+      takeUntil(this.compDest$)
+    ).subscribe((res) => {
+      this.editMode = res;
+    })
+
   }
 
   goBackToAll() {
-    this.router.navigate(['../', 'all'], {relativeTo: this.route});
+    this.router.navigate(['/', 'issues'], {relativeTo: this.route});
   }
 
   onOpenCloseToggleIssue() {
@@ -65,6 +78,15 @@ export class IssueDetailComponent implements OnInit, OnDestroy {
     return dialogRef.afterClosed().pipe(
       takeUntil(this.compDest$)
     );
+  }
+
+  onEditToggle() {
+    if (this.editMode) {
+      this.router.navigate(['./', 'view'], {relativeTo: this.route});
+    } else {
+      this.router.navigate(['./', 'edit'], {relativeTo: this.route});
+    }
+
   }
 
   ngOnDestroy() {

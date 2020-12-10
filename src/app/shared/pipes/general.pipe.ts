@@ -57,12 +57,28 @@ export class CreatedStatusToCssClassPipe implements PipeTransform {
   name: 'issueOpenStatusDisplay',
   pure: true
 })
-export class issueOpenStatusPipe implements PipeTransform {
+export class IssueOpenStatusPipe implements PipeTransform {
 
   transform(value: boolean | undefined, textMode: boolean): any {
     if (value) {
       return textMode ? 'opened' : 'open';
     }
     return textMode ? 'closed' : 'closed';
+  }
+}
+
+
+@Pipe({
+  name: 'getValueCountDisplay',
+  pure: true
+})
+export class ValueCountPipe implements PipeTransform {
+
+  transform(value: string): number {
+    if (value) {
+      let v = value+"";
+      return v.trim().length;
+    }
+    return 0;
   }
 }

@@ -42,3 +42,18 @@ export function scrollToElementById(id: string) {
     }, 10)
   }
 }
+
+
+export const testIssue = {
+  id: "",
+  title: "Test Title",
+  description: "Test Desc",
+  priority: {
+    id: PriorityLevel.Low,
+    display: "Low"
+  },
+  created: false,
+  loading: false,
+  open: true,
+  issueNumber: 1
+};

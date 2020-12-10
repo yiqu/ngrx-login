@@ -4,25 +4,27 @@
   <mat-card-header>
     <div mat-card-avatar class="creator-header-image"></div>
     <mat-card-title class="if f-w-700">
-      <div class="title-parent">
-        <div>
-          Add Issue {{issueFg.pristine ? '' : '*'}}
-        </div>
-        <div>
-          <button type="button" class="btn btn-info" (click)="onIssueCancel()">Cancel</button>
-        </div>
+      <div>
+        Add Issue {{issueFg?.pristine ? '' : '*'}}
       </div>
     </mat-card-title>
-    <!-- <mat-card-subtitle class="if">#10</mat-card-subtitle> -->
+    <mat-card-subtitle class="title-parent">
+      <div>
+        #{{this.cos.currentIssueCounter}}
+      </div>
+      <div>
+        <button type="button" class="btn btn-info" (click)="onIssueCancel()">Cancel</button>
+      </div>
+    </mat-card-subtitle>
   </mat-card-header>
 
   <mat-card-content class="mt-2">
-    <div>
+    <div *ngIf="issueFg">
       <form class="issue-form" [formGroup]="issueFg">
         <mat-form-field class="full-w">
           <mat-label>Title</mat-label>
           <input matInput placeholder="Add NgRx to app..." formControlName="title">
-          <mat-hint align="end">0 / 256</mat-hint>
+          <mat-hint align="end">{{titleValue?.value | getValueCountDisplay}} / 256</mat-hint>
         </mat-form-field>
         <mat-form-field class="full-w mb-2">
           <mat-label>Description</mat-label>
@@ -30,7 +32,7 @@
             [cdkAutosizeMinRows]="3" cdkTextareaAutosize formControlName="description"></textarea>
         </mat-form-field>
         <mat-radio-group class="priority-radio" formControlName="priority">
-          <mat-radio-button *ngFor="let opt of priorityList" [value]="opt" color="primary">
+          <mat-radio-button *ngFor="let opt of priorityList" [value]="opt" color="primary" [class]="opt.id | priorToCssClass">
             <span class="priority-val">{{opt.display}}</span>
           </mat-radio-button>
         </mat-radio-group>
@@ -38,8 +40,8 @@
     </div>
   </mat-card-content>
   <mat-card-actions class="actions">
-    <button type="button" class="btn btn-success" [disabled]="issueFg.invalid" (click)="onSubmit()">Submit new issue</button>
-    <button type="button" class="btn btn-info" *ngIf="!issueFg.pristine" (click)="onFormReset()">Reset</button>
+    <button type="button" class="btn btn-success" [disabled]="issueFg?.invalid" (click)="onSubmit()">Submit new issue</button>
+    <button type="button" class="btn btn-info" *ngIf="!issueFg?.pristine" (click)="onFormReset()">Reset</button>
   </mat-card-actions>
 </mat-card>
   <!-- </div>

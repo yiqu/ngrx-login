@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
-import { CoreService } from 'src/app/shared/services/core.service';
+import { CoreService } from '../../../shared/services/core.service';
 
 @Component({
   selector: 'app-core-issue-display',

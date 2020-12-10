@@ -88,3 +88,28 @@ export const getIssuesOverallLoading = createSelector(
     return state.loading;
   }
 )
+
+export const getSelectedIssueId = createSelector(
+  selectIssueState,
+  (state): string | undefined => {
+    return state.selectedIssueId;
+  }
+)
+
+export const getIssueBySelectedId = createSelector(
+  getSelectedIssueId,
+  selectIssueEntities,
+  (issueId: string | undefined, state) => {
+    if (issueId) {
+      return state[issueId];
+    }
+    return undefined;
+  }
+)
+
+export const getIssueEditMode = createSelector(
+  selectIssueState,
+  (state): boolean => {
+    return state.issueEditMode;
+  }
+)

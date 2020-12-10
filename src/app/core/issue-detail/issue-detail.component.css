@@ -7,10 +7,12 @@
   font-size: 32px;
   font-weight: 400;
   min-height: 35px;
+  line-height: 33px;
+  word-break: break-word;
 }
 
 .count {
-  font-size: 32px;
+  font-size: 25px;
   color: #6a737d;
   min-height: 35px;
   font-weight: 100;
@@ -34,3 +36,8 @@ mat-chip.issue-closed {
   background-color: #888 !important;
 }
 
+p.desc {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #24292e;
+}

@@ -5,6 +5,7 @@
 body {
   /* margin: 0;  */
   font-family: 'Roboto', sans-serif !important;
+  color: #24292e;
 }
 
 .wrapper {
@@ -187,3 +188,26 @@ mat-list-item mat-icon {
   }*/
 }
 
+.mat-radio-button.prior-low .mat-radio-inner-circle {
+  background-color: #80d4ff;
+}
+
+.mat-radio-button.prior-low .mat-radio-outer-circle {
+  border-color: #80d4ff !important;
+}
+
+.mat-radio-button.prior-medium .mat-radio-inner-circle {
+  background-color:  #cccc00;
+}
+
+.mat-radio-button.prior-medium .mat-radio-outer-circle {
+  border-color:  #cccc00 !important;
+}
+
+.mat-radio-button.prior-high .mat-radio-inner-circle {
+  background-color: #e62e00;
+}
+
+.mat-radio-button.prior-high .mat-radio-outer-circle {
+  border-color: #e62e00 !important;
+}
