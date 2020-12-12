@@ -37,7 +37,7 @@ export class IssueCreatorComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges() {
-    console.log("Issue passedin: ",this.issueData)
+    //console.log("Issue passedin: ",this.issueData)
     this.createIssueFg(this.issueData);
   }
 

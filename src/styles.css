@@ -93,6 +93,10 @@ a {
   align-items: center;
 }
 
+p {
+  line-height: 1.6;
+}
+
 /**
 Used to sticky button rows, etc
 **/

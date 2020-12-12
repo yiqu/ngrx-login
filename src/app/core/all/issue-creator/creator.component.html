@@ -1,7 +1,10 @@
 <!-- <div class="row">
   <div class="col-lg-12"> -->
-<mat-card class="creator-card mat-elevation-z5">
-  <mat-card-header>
+<mat-card class="creator-card"
+  [ngClass]="{'mat-elevation-z0':(this.cos.getIssueEditMode$ | async),
+  'mat-elevation-z5':!(this.cos.getIssueEditMode$ | async)}">
+
+  <mat-card-header *ngIf="!(this.cos.getIssueEditMode$ | async)">
     <div mat-card-avatar class="creator-header-image"></div>
     <mat-card-title class="if f-w-700">
       <div>
@@ -40,7 +43,9 @@
     </div>
   </mat-card-content>
   <mat-card-actions class="actions">
-    <button type="button" class="btn btn-success" [disabled]="issueFg?.invalid" (click)="onSubmit()">Submit new issue</button>
+    <button type="button" class="btn btn-success" [disabled]="issueFg?.invalid" (click)="onSubmit()">
+      {{(this.cos.getIssueEditMode$ | async) ? 'Save edits' : 'Submit new issue'}}
+    </button>
     <button type="button" class="btn btn-info" *ngIf="!issueFg?.pristine" (click)="onFormReset()">Reset</button>
   </mat-card-actions>
 </mat-card>

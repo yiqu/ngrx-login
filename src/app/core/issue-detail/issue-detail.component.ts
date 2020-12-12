@@ -30,13 +30,13 @@ export class IssueDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    fromUtils.scrollToElementById("action-row");
+
     this.cs.getIssueBySelectedId$.pipe(
       takeUntil(this.compDest$)
     ).subscribe((res) => {
       this.issue = res;
     });
-
-    fromUtils.scrollToElementById("action-row");
 
     this.route.paramMap.pipe(
       takeUntil(this.compDest$)
@@ -48,7 +48,7 @@ export class IssueDetailComponent implements OnInit, OnDestroy {
       takeUntil(this.compDest$)
     ).subscribe((res) => {
       this.editMode = res;
-    })
+    });
 
   }
 

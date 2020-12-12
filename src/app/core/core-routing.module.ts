@@ -13,7 +13,7 @@ export const routes: Routes = [
       { path: 'all', component: AllIssuesLandingComponent },
       { path: ':id', component: IssueDetailComponent,
           children: [
-            // { path: ':mode', component: IssueDetailViewComponent }
+            // { path: ':mode', component: IssueDetailViewComponent },
             { path: '', redirectTo: 'view', pathMatch: 'full' },
             { path: 'view', component: IssueDetailViewComponent },
             { path: 'edit', component: IssueDetailEditComponent },

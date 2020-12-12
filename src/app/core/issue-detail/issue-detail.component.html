@@ -23,52 +23,54 @@
   </div>
 </ng-container>
 
-<ng-container *ngIf="!(this.cs.issueOverallLoading$ | async)">
-  <ng-container *ngIf="issue; else issueDoesNotExist">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="title">
-          <mat-icon mat-list-icon [class]="issue?.priority?.id | priorToCssClass"
-            [title]="'Priority: ' + issue?.priority?.display">error_outline</mat-icon>
-          {{issue?.title}}
+<!-- <ng-container *ngIf="!(this.cs.issueOverallLoading$ | async)"> -->
+<ng-container *ngIf="issue; else issueDoesNotExist">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="title">
+        <mat-icon mat-list-icon [class]="issue?.priority?.id | priorToCssClass"
+          [title]="'Priority: ' + issue?.priority?.display">error_outline</mat-icon>
+        {{issue?.title}}
+      </div>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-lg-12">
+      <div class="count">
+        #{{issue?.issueNumber}}
+      </div>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-lg-12">
+      <div class="meta">
+        <mat-chip-list class="mr-2">
+          <mat-chip color="primary" selected [class]="issue?.open | openToCssClass">
+            {{issue?.open | issueOpenStatusDisplay:false}}
+          </mat-chip>
+        </mat-chip-list>
+        <div class="v-center">
+          {{issue?.author}} created
+          this issue on {{issue?.dateCreated | dateDisplay:'FULLANDFROMNOW'}}
         </div>
       </div>
     </div>
-    <div class="row mt-2">
-      <div class="col-lg-12">
-        <div class="count">
-          #{{issue?.issueNumber}}
-        </div>
-      </div>
-    </div>
-    <div class="row mt-2">
-      <div class="col-lg-12">
-        <div class="meta">
-          <mat-chip-list class="mr-2">
-            <mat-chip color="primary" selected [class]="issue?.open | openToCssClass">
-              {{issue?.open | issueOpenStatusDisplay:false}}
-            </mat-chip>
-          </mat-chip-list>
-          <div class="v-center">
-            {{issue?.author}} created
-            this issue on {{issue?.dateCreated | dateDisplay:'FULLANDFROMNOW'}}
-          </div>
-        </div>
-      </div>
-    </div>
+  </div>
 
-    <hr>
+  <hr>
 
-  </ng-container>
 </ng-container>
+<!-- </ng-container> -->
 
 <router-outlet></router-outlet>
 
 <ng-template #issueDoesNotExist>
-  <div class="row">
-    <div class="col-lg-12 if fs-18 f-w-700">
-      This issue does not exist anymore.
-      <a [routerLink]="['/', 'issues']">Go back</a>
+  <ng-container *ngIf="!(this.cs.issueOverallLoading$ | async)">
+    <div class="row">
+      <div class="col-lg-12 if fs-18 f-w-700">
+        This issue does not exist anymore.
+        <a [routerLink]="['/', 'issues']">Go back</a>
+      </div>
     </div>
-  </div>
+  </ng-container>
 </ng-template>

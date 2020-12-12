@@ -8,7 +8,6 @@ import { CoreService } from 'src/app/shared/services/core.service';
 import { AppState } from 'src/app/stores/global/app.reducer';
 import * as fromRouterSelectors from '../../../stores/router/router.selectors';
 
-
 @Component({
   selector: 'app-core-issue-detail-view',
   templateUrl: 'view.component.html',
@@ -20,12 +19,12 @@ export class IssueDetailViewComponent implements OnInit, OnDestroy {
   issue: IIssue | undefined = undefined;
 
   constructor(private store: Store<AppState>, private router: Router, private route: ActivatedRoute,
-    public cos: CoreService) {
+    public cs: CoreService) {
 
   }
 
   ngOnInit() {
-    this.cos.getIssueBySelectedId$.pipe(
+    this.cs.getIssueBySelectedId$.pipe(
       takeUntil(this.compDest$)
     ).subscribe((res) => {
       this.issue = res;
