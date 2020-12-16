@@ -7,8 +7,9 @@ import { Observable } from 'rxjs';
 import * as fromIssueActions from '../../stores/issue/issue.actions';
 import * as fromIssueSelectors from '../../stores/issue/issue.selectors';
 import { IIssue } from '../models/general.model';
+import { Router } from '@angular/router';
 
-const ISSUES_PATH: string = "issues";
+export const ISSUES_PATH: string = "issues";
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,7 @@ export class CoreService {
 
   currentIssueCounter: number = 1;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, private router: Router) {
     // start keep track of overall issue counter number
     this.totalIssueCount$.subscribe((res: number) => {
       this.currentIssueCounter = res + 1;
@@ -61,6 +62,14 @@ export class CoreService {
 
   toggleIssueEditMode(mode: boolean) {
     this.store.dispatch(fromIssueActions.toggleIssueEditMode({inEditMode: mode}));
+  }
+
+  deleteIssue(issue: IIssue, url: string) {
+    this.store.dispatch(fromIssueActions.deleteIssueStart({issue: issue, url: url}));
+  }
+
+  goBackToIssuesPage() {
+    this.router.navigate(["/", "issues"]);
   }
 
 }

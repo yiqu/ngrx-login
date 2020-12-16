@@ -11,13 +11,14 @@ import { DocumentChangeAction } from '@angular/fire/firestore';
 import { throwError } from 'rxjs';
 import { FirebasePromiseError } from 'src/app/shared/models/firebase.model';
 import * as firebase from 'firebase/app'
+import { CoreService } from 'src/app/shared/services/core.service';
 
 
 @Injectable()
 export class IssueEffects {
 
   constructor(public actions$: Actions, public ts: ToasterService,
-    private cs: CrudService) {
+    private cs: CrudService, private cos: CoreService) {
   }
 
   onAddIssue$ = createEffect(() => {
@@ -192,7 +193,7 @@ export class IssueEffects {
     return this.actions$.pipe(
       ofType(fromIssueActions.createIssueCleanupSuccess),
       tap(() => {
-        this.ts.getSnackbar("Issue created successfully!");
+        this.ts.getSnackbar("Issue created successfully");
       })
     );
   }, {dispatch: false});
@@ -201,7 +202,37 @@ export class IssueEffects {
     return this.actions$.pipe(
       ofType(fromIssueActions.createIssueCleanupFailed),
       tap(() => {
-        this.ts.getSnackbar("Error occured creating the issue!");
+        this.ts.getSnackbar("Error occured creating the issue");
+      })
+    );
+  }, {dispatch: false});
+
+  onDeleteIssue$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromIssueActions.deleteIssueStart),
+      exhaustMap((res) => {
+        const issueToDelete = res.issue;
+        const url = res.url;
+        return this.cs.deleteDocument(issueToDelete, url).then(
+          (res) => {
+            return fromIssueActions.deleteIssueSuccess({issue: issueToDelete});
+          },
+          (rej) => {
+            const authErrMsg = fromFirebaseUtils.getFirebaseErrorMsg(rej);
+            return fromIssueActions.deleteIssueFailed({issue: issueToDelete, errMsg: authErrMsg});
+          }
+        )
+      })
+    );
+  });
+
+  onDeleteIssueSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromIssueActions.deleteIssueSuccess),
+      /** An EMPTY observable only emits completion. Replace with your own observable stream */
+      tap((res) => {
+        this.ts.getSnackbar("Issue #" + res.issue.issueNumber + " was deleted successfully");
+        this.cos.goBackToIssuesPage();
       })
     );
   }, {dispatch: false});

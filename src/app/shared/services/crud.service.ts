@@ -20,6 +20,7 @@ export class CrudService {
   }
 
   /**
+   * NOT BRING USED----------
    * Listen for issue collections changes
    */
   listenForIssueChanges() {
@@ -60,17 +61,40 @@ export class CrudService {
     return this.afs.createId();
   }
 
+  /**
+   * Update a document
+   */
   updatePartialDocument<T>(part: Update<T>, url: string): Promise<void> {
     const doc = this.afs.doc<T>(url);
     const data = part.changes;
     return doc.update(data);
   }
 
+  /**
+   * Delete a doc from collection list (issue list)
+   */
+  deleteDocument<T>(issue: IIssue, url: string = "issues"): Promise<void> {
+    const doc = this.afs.collection<T>(url);
+    return doc.doc(issue.id).delete();
+  }
+
+  /**
+   * Get a collection list
+   * @param url
+   */
   readCollections<T>(url: string): Promise<firebase.default.firestore.QuerySnapshot<T>> {
     const collection: AngularFirestoreCollection<T> = this.afs.collection<T>(url);
     return collection.ref.orderBy("dateCreated", "desc").get();
   }
 
+  /**
+   * Listener for changes
+   *
+   * @param url
+   * @param next
+   * @param error
+   * @param complete
+   */
   readCollectionsOnChanges<T>(url: string, next: (res: firebase.default.firestore.QuerySnapshot<T>)=>void,
     error: (err: firebase.default.firestore.FirestoreError)=>void, complete: ()=>void) {
     const collection: AngularFirestoreCollection<T> = this.afs.collection<T>(url);
@@ -80,5 +104,6 @@ export class CrudService {
   addNewIssue(issue: IIssue, path: string): void {
     this.store.dispatch(fromIssueActions.createIssueStart({data: issue, url: path}));
   }
+
 
 }

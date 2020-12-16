@@ -221,6 +221,34 @@ export const issueEntityReducer = createReducer(
       ...state,
       issueEditMode: inEditMode
     }
+  }),
+
+  on(issueActions.deleteIssueStart, (state, {issue, url}) => {
+    console.log(issue)
+    return adapter.removeOne(issue.id, {
+      ...state,
+      loading: true,
+      fbError: false,
+      fbErrorMsg: null
+    })
+  }),
+
+  on(issueActions.deleteIssueSuccess, (state, {issue}) => {
+    return {
+      ...state,
+      loading: false,
+      fbError: false,
+      fbErrorMsg: null
+    }
+  }),
+
+  on(issueActions.deleteIssueFailed, (state, {issue, errMsg}) => {
+    return adapter.addOne(issue, {
+      ...state,
+      loading: false,
+      fbError: true,
+      fbErrorMsg: errMsg
+    })
   })
 
 )

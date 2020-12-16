@@ -2,14 +2,19 @@
   <div class="col-lg-12 action-row">
     <div>
       <button type="button" class="btn btn-outline-primary mr-2" (click)="goBackToAll()">Back</button>
-      <button *ngIf="issue?.open" type="button" class="btn btn-warning" (click)="onEditToggle()">
-        {{ (this.cs.getIssueEditMode$ | async) ? 'Cancel edit' : 'Edit issue' }}
-      </button>
+      <ng-container *ngIf="issue">
+        <button *ngIf="issue?.open" type="button" class="btn btn-warning mr-2" (click)="onEditToggle()">
+          {{ (this.cs.getIssueEditMode$ | async) ? 'Cancel edit' : 'Edit issue' }}
+        </button>
+        <button type="button" class="btn btn-danger mr-2" (click)="deleteIssue()">Delete issue</button>
+      </ng-container>
     </div>
     <div>
-      <button type="button" class="btn btn-success" (click)="onOpenCloseToggleIssue()">
-        {{issue?.open ? 'Close issue' : 'Reopen issue'}}
-      </button>
+      <ng-container *ngIf="issue">
+        <button type="button" class="btn btn-success" (click)="onOpenCloseToggleIssue()">
+          {{issue?.open ? 'Close issue' : 'Reopen issue'}}
+        </button>
+      </ng-container>
     </div>
   </div>
 </div>

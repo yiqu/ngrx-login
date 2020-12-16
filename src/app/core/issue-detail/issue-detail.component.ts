@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { IIssue } from 'src/app/shared/models/general.model';
-import { CoreService } from 'src/app/shared/services/core.service';
+import { CoreService, ISSUES_PATH } from 'src/app/shared/services/core.service';
 import { AppState } from 'src/app/stores/global/app.reducer';
 import * as fromRouterSelectors from '../../stores/router/router.selectors';
 import * as fromUtils from '../../shared/general.utils';
@@ -58,7 +58,8 @@ export class IssueDetailComponent implements OnInit, OnDestroy {
 
   onOpenCloseToggleIssue() {
     if (this.issue) {
-      this.openConfirmDialog().subscribe(
+      const txt = this.issue?.open ? "close" : "reopen";
+      this.openConfirmDialog(txt).subscribe(
         (res) => {
           if (res && this.issue) {
             this.cs.toggleOpenCloseIssue(this.issue);
@@ -68,8 +69,7 @@ export class IssueDetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  openConfirmDialog() {
-    const txt = this.issue?.open ? "close" : "reopen";
+  openConfirmDialog(txt: string) {
     const dialogRef = this.dialog.open(DialogConfirmComponent, {
       minWidth: '300px',
       data: {actionName: (txt + " this issue?")}
@@ -87,6 +87,16 @@ export class IssueDetailComponent implements OnInit, OnDestroy {
       this.router.navigate(['./', 'edit'], {relativeTo: this.route});
     }
 
+  }
+
+  deleteIssue() {
+    this.openConfirmDialog("delete").subscribe(
+      (res) => {
+        if (res && this.issue) {
+          this.cs.deleteIssue(this.issue, ISSUES_PATH);
+        }
+      }
+    )
   }
 
   ngOnDestroy() {

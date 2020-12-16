@@ -25,6 +25,11 @@ const SELECT_ISSUE: string = "[Issue Detail/View Edit] Set selected issue ID";
 
 const TOGGLE_ISSUE_EDIT: string = "[Issue Detail/Toggle Edit] Toggle issue edit mode";
 
+const DELETE_ISSUE_START: string = "[Issue Detail/Delete] Delete an issue start";
+const DELETE_ISSUE_SUCCESS: string = "[Issue Detail/Delete] Delete an issue success";
+const DELETE_ISSUE_FAILED: string = "[Issue Detail/Delete] Delete an issue failed";
+
+
 export const createIssueStart = createAction(
   CREATE_ISSUE_START,
   props<{data: IIssue, url: string}>()
@@ -102,4 +107,19 @@ export const setSelectedIssueId = createAction(
 export const toggleIssueEditMode = createAction(
   TOGGLE_ISSUE_EDIT,
   props<{inEditMode: boolean}>()
+)
+
+export const deleteIssueStart = createAction(
+  DELETE_ISSUE_START,
+  props<{issue: IIssue, url: string}>()
+)
+
+export const deleteIssueSuccess = createAction(
+  DELETE_ISSUE_SUCCESS,
+  props<{issue: IIssue}>()
+)
+
+export const deleteIssueFailed = createAction(
+  DELETE_ISSUE_FAILED,
+  props<{issue: IIssue, errMsg: string}>()
 )
