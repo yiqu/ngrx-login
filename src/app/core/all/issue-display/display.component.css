@@ -25,3 +25,10 @@ mat-list-item .mat-icon.open {
 mat-list-item .mat-icon.closed {
   background-color: #00cc44;
 }
+
+.no-issues {
+  display: flex;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 400;
+}

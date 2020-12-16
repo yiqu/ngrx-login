@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
 import * as fromIssueActions from '../../stores/issue/issue.actions';
 import * as fromIssueSelectors from '../../stores/issue/issue.selectors';
 import { IIssue } from '../models/general.model';
-import { Router } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { Update } from '@ngrx/entity';
 
 export const ISSUES_PATH: string = "issues";
 
@@ -29,15 +30,26 @@ export class CoreService {
   public getIssueBySelectedId$: Observable<IIssue | undefined> = this.store.select(fromIssueSelectors.getIssueBySelectedId);
   public issueOverallLoading$: Observable<boolean> = this.store.select(fromIssueSelectors.getIssuesOverallLoading);
   public getIssueEditMode$: Observable<boolean> = this.store.select(fromIssueSelectors.getIssueEditMode);
-
+  public refreshAllIssuesRequest$: Observable<number> = this.store.select(fromIssueSelectors.refreshAllIssuesRequestDate);
+  public issuesRefreshLoading$: Observable<boolean> = this.store.select(fromIssueSelectors.refreshingAllIssuesLoading);
 
   currentIssueCounter: number = 1;
 
-  constructor(private store: Store<AppState>, private router: Router) {
+  constructor(private store: Store<AppState>, private router: Router, private route: ActivatedRoute) {
     // start keep track of overall issue counter number
     this.totalIssueCount$.subscribe((res: number) => {
       this.currentIssueCounter = res + 1;
     });
+
+    // set up listener for all isses refresh
+    this.refreshAllIssuesRequest$.subscribe(
+      (res) => {
+        if (res) {
+          console.log("refreshing all issues:", res)
+          this.getAllIssues();
+        }
+      }
+    );
   }
 
   toggleNewIssuePane(status: boolean) {
@@ -72,4 +84,12 @@ export class CoreService {
     this.router.navigate(["/", "issues"]);
   }
 
+  goToIssueDetailView(id: string | number) {
+    this.router.navigate(['/issues', id]);
+  }
+
+  editIssue(updates: Update<IIssue>, issue: IIssue) {
+    const url = ISSUES_PATH + "/" + updates.id;
+    this.store.dispatch(fromIssueActions.editIssueStart({updates: updates, url: url, issue: issue}));
+  }
 }

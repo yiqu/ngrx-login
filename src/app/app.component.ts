@@ -1,6 +1,7 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
+import { Store } from '@ngrx/store';
 import * as firebase from 'firebase/app';
 import { Subject } from 'rxjs';
 // import 'firebase/analytics';
@@ -8,7 +9,8 @@ import { Subject } from 'rxjs';
 // import 'firebase/database';
 import { environment } from 'src/environments/environment';
 import { IsMobileService } from './shared/services/is-mobile.service';
-
+import { AppState } from './stores/global/app.reducer';
+import * as fromIssuesActions from './stores/issue/issue.actions';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +29,9 @@ export class AppComponent implements OnInit {
   mobileQuery!: MediaQueryList;
   private _mobileQueryListener!: () => void;
 
-  constructor(public changeDetectorRef: ChangeDetectorRef, private ims: IsMobileService, public media: MediaMatcher) {
+  constructor(public changeDetectorRef: ChangeDetectorRef, private ims: IsMobileService, public media: MediaMatcher,
+    private store: Store<AppState>) {
+
     this.setMobileDetection();
   }
 
@@ -63,6 +67,10 @@ export class AppComponent implements OnInit {
     if (this.sideNav) {
       this.sideNav.close();
     }
+  }
+
+  onTopNavLogoClick() {
+    this.store.dispatch(fromIssuesActions.refreshAllIssues({time: new Date().getTime()}));
   }
 
 }

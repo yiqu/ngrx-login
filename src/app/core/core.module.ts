@@ -17,6 +17,7 @@ import { AllIssuesLandingComponent } from './all/all.component';
 import { SharedBudleModule } from '../shared/shared.module';
 import { IssueDetailEditComponent } from './issue-detail/edit/edit.component';
 import { IssueDetailViewComponent } from './issue-detail/view/view.component';
+import { LoadingModule } from '../shared/loading/loading.module';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { IssueDetailViewComponent } from './issue-detail/view/view.component';
     EffectsModule.forFeature(fromIssueEffects.issuesEffects),
     PipeBundleModule,
     SharedBudleModule,
+    LoadingModule,
     CoreRoutingModule,
   ],
 

@@ -215,3 +215,12 @@ mat-list-item mat-icon {
 .mat-radio-button.prior-high .mat-radio-outer-circle {
   border-color: #e62e00 !important;
 }
+
+.lg-img {
+  height: 75px;
+}
+
+.lg-img-parent {
+  display: flex;
+  justify-content: center;
+}

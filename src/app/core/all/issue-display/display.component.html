@@ -13,10 +13,34 @@
   </mat-list-item>
 
   <!-- Loop through the issues -->
-  <ng-container *ngIf="(this.cs.getAllIssues$ | async) as allIssues">
-    <ng-container *ngFor="let issue of allIssues">
-      <app-core-issue-display-issue [issue]="issue"></app-core-issue-display-issue>
+  <ng-container *ngIf="!(this.cs.issuesRefreshLoading$ | async); else issueLoading">
+    <ng-container *ngIf="(this.cs.getAllIssues$ | async) as allIssues">
+      <ng-container *ngIf="(allIssues && allIssues.length > 0); else noIssuesReturned">
+        <ng-container *ngFor="let issue of allIssues">
+          <app-core-issue-display-issue [issue]="issue"></app-core-issue-display-issue>
+        </ng-container>
+      </ng-container>
     </ng-container>
   </ng-container>
 
 </mat-list>
+
+<ng-template #noIssuesReturned>
+  <div class="lg-img-parent mt-5 mb-3">
+    <img src="assets/banner/empty-cb.png" class="lg-img d-inline-block" alt="logo">
+  </div>
+  <div class="no-issues if mb-3">
+    No isses were found.
+  </div>
+  <div class="no-issues if">
+    <a [routerLink]="['./']" [queryParams]="{newIssuePane: 'open'}">
+      Would you like to create a new issue?
+    </a>
+  </div>
+</ng-template>
+
+<ng-template #issueLoading>
+  <div class="my-5">
+    <app-shared-loading></app-shared-loading>
+  </div>
+</ng-template>

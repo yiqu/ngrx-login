@@ -29,6 +29,11 @@ const DELETE_ISSUE_START: string = "[Issue Detail/Delete] Delete an issue start"
 const DELETE_ISSUE_SUCCESS: string = "[Issue Detail/Delete] Delete an issue success";
 const DELETE_ISSUE_FAILED: string = "[Issue Detail/Delete] Delete an issue failed";
 
+const UPDATE_ISSUE_START: string = "[Issue Detail/Edit] Edit issue start";
+const UPDATE_ISSUE_SUCCESS: string = "[Issue Detail/Edit] Edit issue success";
+const UPDATE_ISSUE_FAILURE: string = "[Issue Detail/Edit] Edit issue failed";
+
+const RELOAD_ALL_ISSUES_REQUEST: string = "[Issue All/Refresh] Request Refresh All Issues";
 
 export const createIssueStart = createAction(
   CREATE_ISSUE_START,
@@ -122,4 +127,24 @@ export const deleteIssueSuccess = createAction(
 export const deleteIssueFailed = createAction(
   DELETE_ISSUE_FAILED,
   props<{issue: IIssue, errMsg: string}>()
+)
+
+export const editIssueStart = createAction(
+  UPDATE_ISSUE_START,
+  props<{updates: Update<IIssue>, url: string, issue: IIssue}>()
+)
+
+export const editIssueSuccess = createAction(
+  UPDATE_ISSUE_SUCCESS,
+  props<{issue: Update<IIssue>}>()
+)
+
+export const editIssueFailed = createAction(
+  UPDATE_ISSUE_FAILURE,
+  props<{issue: IIssue, errMsg: string}>()
+)
+
+export const refreshAllIssues = createAction(
+  RELOAD_ALL_ISSUES_REQUEST,
+  props<{time: number}>()
 )

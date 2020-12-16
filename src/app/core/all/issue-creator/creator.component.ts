@@ -6,6 +6,7 @@ import { CoreService } from 'src/app/shared/services/core.service';
 import { CrudService } from 'src/app/shared/services/crud.service';
 import * as gUtils from '../../../shared/general.utils';
 import * as fromValidators from '../../../shared/form-validators/general-form.validator';
+import { Update } from '@ngrx/entity';
 
 const ISSUE_PATH: string = "issues";
 
@@ -18,6 +19,9 @@ export class IssueCreatorComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input()
   issueData: IIssue | undefined = undefined;
+
+  @Input()
+  isEditMode: boolean | null = false;
 
   priorityList: IssuePriority[];
   issueFg: FormGroup | undefined;
@@ -66,10 +70,24 @@ export class IssueCreatorComponent implements OnInit, OnChanges, OnDestroy {
   onSubmit() {
     let issueVal: IIssue = this.issueFg?.value;
     if (this.issueFg?.valid) {
-      const data = this.createFullIssueObject(issueVal);
-      const docPath: string = ISSUE_PATH + "/" + data.id;
-      this.cs.addNewIssue(data, docPath);
-      this.onIssueCancel();
+
+      if (this.isEditMode && this.issueData) {
+        console.log("edit mode")
+        const update: Update<IIssue> = {
+          id: this.issueData?.id,
+          changes: {
+            ...issueVal,
+            loading: true
+          }
+        }
+        this.cos.editIssue(update, this.issueData);
+      }
+      else {
+        const data = this.createFullIssueObject(issueVal);
+        const docPath: string = ISSUE_PATH + "/" + data.id;
+        this.cs.addNewIssue(data, docPath);
+        this.onIssueCancel();
+      }
     }
   }
 

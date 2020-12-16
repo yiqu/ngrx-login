@@ -229,7 +229,6 @@ export class IssueEffects {
   onDeleteIssueSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(fromIssueActions.deleteIssueSuccess),
-      /** An EMPTY observable only emits completion. Replace with your own observable stream */
       tap((res) => {
         this.ts.getSnackbar("Issue #" + res.issue.issueNumber + " was deleted successfully");
         this.cos.goBackToIssuesPage();
@@ -237,6 +236,50 @@ export class IssueEffects {
     );
   }, {dispatch: false});
 
+
+  onEditIssue$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromIssueActions.editIssueStart),
+      concatMap((res) => {
+        const originalIssue: IIssue = res.issue;
+        const updates = res.updates;
+        let updateWithOutLoadingOn: Update<IIssue> = removeLoadingOnFromUpdates(res.updates, res.issue.id);
+
+        return this.cs.updatePartialDocument(updateWithOutLoadingOn, res.url).then(
+          (res) => {
+            return fromIssueActions.editIssueSuccess({issue: updates})
+          },
+          (rej) => {
+            const authErrMsg = fromFirebaseUtils.getFirebaseErrorMsg(rej);
+            return fromIssueActions.editIssueFailed({errMsg: authErrMsg, issue: originalIssue});
+          }
+        )
+      })
+    );
+  });
+
+  onEditIssueSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromIssueActions.editIssueSuccess),
+      tap((res) => {
+        this.ts.getSnackbar("Issue #" + res.issue.changes.issueNumber + " was edited");
+        this.cos.goToIssueDetailView(res.issue.id);
+      })
+    );
+  }, {dispatch: false});
+
+
+}
+
+export function removeLoadingOnFromUpdates(update: Update<IIssue>, id: string) {
+  let updateWithOutLoadingOn: Update<IIssue> = {
+    id: id,
+    changes: {
+      ...update.changes,
+      loading: false
+    }
+  };
+  return updateWithOutLoadingOn;
 }
 
 

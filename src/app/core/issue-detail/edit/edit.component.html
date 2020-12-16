@@ -1,7 +1,7 @@
 <ng-container *ngIf="(this.cs.getIssueBySelectedId$ | async) as issue">
-  <div class="row mb-5">
+  <div class="row">
     <div class="col-lg-12">
-      <app-core-issue-creator [issueData]="issue"></app-core-issue-creator>
+      <app-core-issue-creator [issueData]="issue" [isEditMode]="(this.cs.getIssueEditMode$ | async)"></app-core-issue-creator>
     </div>
   </div>
 </ng-container>

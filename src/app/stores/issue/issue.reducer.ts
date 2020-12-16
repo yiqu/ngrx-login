@@ -5,11 +5,13 @@ import * as issueActions from './issue.actions';
 
 export interface IssueEntityState extends EntityState<IIssue> {
   loading: boolean;
+  issuesRefreshingLoading: boolean;
   fbError: boolean;
   fbErrorMsg: string | null;
   allIssuesLastFetched: number;
   selectedIssueId: string | undefined;
   issueEditMode: boolean;
+  lastRefreshAllRequest: number;
 }
 
 export function selectId(i: IIssue) {
@@ -85,6 +87,7 @@ export const issueEntityReducer = createReducer(
     return adapter.setAll(data, {
       ...state,
       allIssuesLastFetched: updatedTime,
+      issuesRefreshingLoading: false,
       loading: false,
       fbError: false,
       fbErrorMsg: null
@@ -94,6 +97,7 @@ export const issueEntityReducer = createReducer(
   on(issueActions.loadAllIssuesStart, (state, {url}) => {
     return {
       ...state,
+      issuesRefreshingLoading: true,
       loading: true,
       fbError: false,
       fbErrorMsg: null
@@ -103,6 +107,7 @@ export const issueEntityReducer = createReducer(
   on(issueActions.loadAllIssuesFailed, (state, {errMsg}) => {
     return {
       ...state,
+      issuesRefreshingLoading: false,
       loading: false,
       fbError: true,
       fbErrorMsg: errMsg
@@ -249,6 +254,39 @@ export const issueEntityReducer = createReducer(
       fbError: true,
       fbErrorMsg: errMsg
     })
+  }),
+
+  on(issueActions.editIssueStart, (state, {updates, url, issue}) => {
+    return adapter.updateOne(updates, {
+      ...state,
+      loading: true,
+      fbError: false,
+      fbErrorMsg: null
+    })
+  }),
+
+  on(issueActions.editIssueSuccess, (state, {issue}) => {
+    const id = issue.id+"";
+    const updates: Update<IIssue> = {
+      id: id,
+      changes: {
+        ...issue.changes,
+        loading: false
+      }
+    }
+    return adapter.updateOne(updates, {
+      ...state,
+      loading: false,
+      fbError: false,
+      fbErrorMsg: null
+    })
+  }),
+
+  on(issueActions.refreshAllIssues, (state, {time}) => {
+    return {
+      ...state,
+      lastRefreshAllRequest: time
+    }
   })
 
 )

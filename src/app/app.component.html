@@ -1,5 +1,5 @@
 <div class="app-container" [class.app-is-mobile]="mobileQuery.matches">
-  <app-top-nav (navToggle)="onTopNavMenuClick()"></app-top-nav>
+  <app-top-nav (navToggle)="onTopNavMenuClick()" (logoClick)="onTopNavLogoClick()"></app-top-nav>
 
   <mat-sidenav-container class="app-sidenav-container"
   [style.marginTop.px]="mobileQuery.matches ? 56 : 0">

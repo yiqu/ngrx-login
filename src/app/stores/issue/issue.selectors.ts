@@ -113,3 +113,18 @@ export const getIssueEditMode = createSelector(
     return state.issueEditMode;
   }
 )
+
+
+export const refreshAllIssuesRequestDate = createSelector(
+  selectIssueState,
+  (state): number => {
+    return state.lastRefreshAllRequest;
+  }
+)
+
+export const refreshingAllIssuesLoading = createSelector(
+  selectIssueState,
+  (state): boolean => {
+    return state.issuesRefreshingLoading;
+  }
+)

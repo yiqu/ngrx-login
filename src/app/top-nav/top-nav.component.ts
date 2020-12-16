@@ -32,6 +32,9 @@ export class TopNavComponent implements OnInit, OnDestroy, AfterViewInit {
   @Output()
   navToggle: EventEmitter<any> = new EventEmitter<any>();
 
+  @Output()
+  logoClick: EventEmitter<any> = new EventEmitter<any>();
+
   constructor(public router: Router, public route: ActivatedRoute) {
 
   }
@@ -45,6 +48,7 @@ export class TopNavComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onLogoClick() {
+    this.logoClick.emit();
   }
 
   onMenuClick() {
