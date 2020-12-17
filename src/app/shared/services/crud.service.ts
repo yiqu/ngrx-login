@@ -82,9 +82,17 @@ export class CrudService {
    * Get a collection list
    * @param url
    */
-  readCollections<T>(url: string): Promise<firebase.default.firestore.QuerySnapshot<T>> {
+  readCollections<T>(url: string, searchTerm: string | null): Promise<firebase.default.firestore.QuerySnapshot<T>> {
     const collection: AngularFirestoreCollection<T> = this.afs.collection<T>(url);
-    return collection.ref.orderBy("dateCreated", "desc").get();
+    console.log(searchTerm)
+    if (searchTerm) {
+      return collection.ref
+      .where("description", ">=", searchTerm)
+      .get();
+    }
+    return collection.ref
+      .orderBy("dateCreated", "desc")
+      .get();
   }
 
   /**

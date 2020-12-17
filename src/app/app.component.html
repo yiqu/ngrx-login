@@ -5,7 +5,7 @@
   [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
 
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'over'"
-      [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" fixedBottomGap="41"
+      [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" fixedBottomGap="0"
       autoFocus="false">
       <app-side-nav (navClose)="onNavClose()"></app-side-nav>
     </mat-sidenav>

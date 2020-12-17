@@ -28,4 +28,6 @@ mat-list-item.link-active {
 
 .sub-header {
   font-size: 20px;
+  font-weight: 700;
+  color: #000;
 }

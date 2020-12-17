@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Form, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IIssue, IssuePriority, PriorityLevel } from 'src/app/shared/models/general.model';
@@ -15,13 +15,16 @@ const ISSUE_PATH: string = "issues";
   templateUrl: 'creator.component.html',
   styleUrls: ['./creator.component.css']
 })
-export class IssueCreatorComponent implements OnInit, OnChanges, OnDestroy {
+export class IssueCreatorComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
 
   @Input()
   issueData: IIssue | undefined = undefined;
 
   @Input()
   isEditMode: boolean | null = false;
+
+  @ViewChild("titleInput")
+  titleInput?: ElementRef;
 
   priorityList: IssuePriority[];
   issueFg: FormGroup | undefined;
@@ -46,6 +49,12 @@ export class IssueCreatorComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.titleInput?.nativeElement.focus();
+    },300);
   }
 
   createIssueFg(value?: IIssue) {

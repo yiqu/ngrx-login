@@ -22,7 +22,7 @@ export class CoreComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.cs.getAllIssues();
+    this.cs.getAllIssues(null);
   }
 
   ngOnDestroy() {

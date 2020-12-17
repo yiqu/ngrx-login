@@ -9,7 +9,7 @@ const CREATE_ISSUE_FAILURE: string = "[Issue Creator/API] Create new issue faile
 const CREATE_ISSUE_CLEANUP_SUCCESS: string = "[Issue Creator/API] Clean up and set loading to false success";
 const CREATE_ISSUE_CLEANUP_FAILURE: string = "[Issue Creator/API] Clean up and set loading to false failed";
 
-const LOAD_ALL_ISSUES_START: string = "[Issue Display/API] Load all issues from database";
+const LOAD_ALL_ISSUES_START: string = "[Issue Display/API] Load all issues start";
 const LOAD_ALL_ISSUES_SUCCESS: string = "[Issue Display/API] Load all issues success";
 const LOAD_ALL_ISSUES_FAILED: string = "[Issue Display/API] Load all issues failed";
 
@@ -61,7 +61,7 @@ export const createIssueCleanupFailed = createAction(
 
 export const loadAllIssuesStart = createAction(
   LOAD_ALL_ISSUES_START,
-  props<{url: string}>()
+  props<{url: string, searchTerm: string | null}>()
 )
 
 export const loadAllIssuesSuccess = createAction(

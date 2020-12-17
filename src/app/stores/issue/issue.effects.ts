@@ -72,7 +72,8 @@ export class IssueEffects {
       ofType(fromIssueActions.loadAllIssuesStart),
       switchMap((res) => {
         const path = res.url;
-        return this.cs.readCollections<IIssue>(path).then(
+        const searchTerm = res.searchTerm;
+        return this.cs.readCollections<IIssue>(path, searchTerm).then(
           (res) => {
             let allIssues: IIssue[] = [];
             const currentTime: number = new Date().getTime();

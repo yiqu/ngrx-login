@@ -139,8 +139,8 @@ mat-card-header .mat-card-header-text {
   z-index: 2;
 }
 
-app-side-nav .mat-list-item-content {
-  font-family: 'Indie Flower', cursive;
+mat-sidenav {
+  width: 300px;
 }
 
 .app-snackbar {

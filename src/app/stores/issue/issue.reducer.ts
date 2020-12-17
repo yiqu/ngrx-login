@@ -12,6 +12,7 @@ export interface IssueEntityState extends EntityState<IIssue> {
   selectedIssueId: string | undefined;
   issueEditMode: boolean;
   lastRefreshAllRequest: number;
+  searchTerm: string | null;
 }
 
 export function selectId(i: IIssue) {
@@ -31,7 +32,7 @@ export const adapter = createEntityAdapter<IIssue>({
 export const inititalState = adapter.getInitialState({
   loading: false,
   fbError: false,
-  allIssuesLastFetched: 0,
+  allIssuesLastFetched: 0
 });
 
 
@@ -94,10 +95,14 @@ export const issueEntityReducer = createReducer(
     })
   }),
 
-  on(issueActions.loadAllIssuesStart, (state, {url}) => {
+  on(issueActions.loadAllIssuesStart, (state, {url, searchTerm}) => {
+    // dont cause loading mask to show if it's searching for issues
+    let shouldDisplayLoadingMask = searchTerm ? false : true;
+
     return {
       ...state,
-      issuesRefreshingLoading: true,
+      issuesRefreshingLoading: shouldDisplayLoadingMask,
+      searchTerm: searchTerm,
       loading: true,
       fbError: false,
       fbErrorMsg: null

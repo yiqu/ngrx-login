@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { IIssue, PriorityLevel } from 'src/app/shared/models/general.model';
 import { CoreService } from '../../shared/services/core.service';
+import * as fromUtils from '../../shared/general.utils';
+import { debounce } from 'lodash';
+
 
 @Component({
   selector: 'app-core-all-issues',
@@ -15,8 +19,10 @@ export class AllIssuesLandingComponent implements OnInit {
   compDest$: Subject<any> = new Subject<any>();
   showIssueCreatePane: boolean = false;
   newIssue: IIssue | undefined = undefined;
+  searchCtrl: FormControl;
 
   constructor(private cs: CoreService, private router: Router, private route: ActivatedRoute) {
+    this.searchCtrl = fromUtils.createFormControl2(null, false);
   }
 
   ngOnInit() {
@@ -24,7 +30,22 @@ export class AllIssuesLandingComponent implements OnInit {
       takeUntil(this.compDest$)
     ).subscribe((res) => {
       this.showIssueCreatePane = !!res;
-    })
+    });
+
+    this.searchCtrl.valueChanges.pipe(
+      debounceTime(500),
+      distinctUntilChanged((a,b) => {
+        return a === b;
+      })
+    ).subscribe(
+      (res: string) => {
+        let searchTerm: string | null = null;
+        if (res && (res.trim() !== "")) {
+          searchTerm = res.trim();
+        }
+        this.cs.getAllIssues(searchTerm);
+      }
+    );
   }
 
   onSearch() {

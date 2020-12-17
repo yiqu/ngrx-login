@@ -46,7 +46,7 @@ export class CoreService {
       (res) => {
         if (res) {
           console.log("refreshing all issues:", res)
-          this.getAllIssues();
+          this.getAllIssues(null);
         }
       }
     );
@@ -56,8 +56,8 @@ export class CoreService {
     this.store.dispatch(fromUiActions.toggleNewIssuePane({open: status}));
   }
 
-  getAllIssues() {
-    this.store.dispatch(fromIssueActions.loadAllIssuesStart({url: ISSUES_PATH}));
+  getAllIssues(searchTerm: string | null) {
+    this.store.dispatch(fromIssueActions.loadAllIssuesStart({url: ISSUES_PATH, searchTerm: searchTerm}));
   }
 
   toggleOpenCloseIssue(i: IIssue) {

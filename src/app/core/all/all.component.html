@@ -3,7 +3,7 @@
     <div class="input-parent">
       <mat-form-field>
         <mat-label>Search issues..</mat-label>
-        <input matInput placeholder="NgRx upgrade">
+        <input matInput placeholder="NgRx upgrade" [formControl]="searchCtrl">
         <button mat-button matSuffix mat-icon-button (click)="onSearch()">
           <mat-icon>search</mat-icon>
         </button>

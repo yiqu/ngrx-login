@@ -35,17 +35,14 @@
       <div class="title">
         <mat-icon mat-list-icon [class]="issue?.priority?.id | priorToCssClass"
           [title]="'Priority: ' + issue?.priority?.display">error_outline</mat-icon>
-        {{issue?.title}}
+            {{issue?.title}}
+            <span class="count">
+              #{{issue?.issueNumber}}
+            </span>
       </div>
     </div>
   </div>
-  <div class="row mt-2">
-    <div class="col-lg-12">
-      <div class="count">
-        #{{issue?.issueNumber}}
-      </div>
-    </div>
-  </div>
+
   <div class="row mt-2">
     <div class="col-lg-12">
       <div class="meta">
