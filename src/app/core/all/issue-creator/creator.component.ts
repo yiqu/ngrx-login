@@ -79,9 +79,7 @@ export class IssueCreatorComponent implements OnInit, OnChanges, AfterViewInit, 
   onSubmit() {
     let issueVal: IIssue = this.issueFg?.value;
     if (this.issueFg?.valid) {
-
       if (this.isEditMode && this.issueData) {
-        console.log("edit mode")
         const update: Update<IIssue> = {
           id: this.issueData?.id,
           changes: {
@@ -90,8 +88,7 @@ export class IssueCreatorComponent implements OnInit, OnChanges, AfterViewInit, 
           }
         }
         this.cos.editIssue(update, this.issueData);
-      }
-      else {
+      } else {
         const data = this.createFullIssueObject(issueVal);
         const docPath: string = ISSUE_PATH + "/" + data.id;
         this.cs.addNewIssue(data, docPath);

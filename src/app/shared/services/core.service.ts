@@ -32,6 +32,7 @@ export class CoreService {
   public getIssueEditMode$: Observable<boolean> = this.store.select(fromIssueSelectors.getIssueEditMode);
   public refreshAllIssuesRequest$: Observable<number> = this.store.select(fromIssueSelectors.refreshAllIssuesRequestDate);
   public issuesRefreshLoading$: Observable<boolean> = this.store.select(fromIssueSelectors.refreshingAllIssuesLoading);
+  public getUserSearchTerm$: Observable<string | null> = this.store.select(fromIssueSelectors.getLastUserSearchTerm);
 
   currentIssueCounter: number = 1;
 
@@ -46,7 +47,7 @@ export class CoreService {
       (res) => {
         if (res) {
           console.log("refreshing all issues:", res)
-          this.getAllIssues(null);
+          this.getAllIssues(null, true);
         }
       }
     );
@@ -56,8 +57,8 @@ export class CoreService {
     this.store.dispatch(fromUiActions.toggleNewIssuePane({open: status}));
   }
 
-  getAllIssues(searchTerm: string | null) {
-    this.store.dispatch(fromIssueActions.loadAllIssuesStart({url: ISSUES_PATH, searchTerm: searchTerm}));
+  getAllIssues(searchTerm: string | null, showLoadMask: boolean = false) {
+    this.store.dispatch(fromIssueActions.loadAllIssuesStart({url: ISSUES_PATH, searchTerm: searchTerm, showLoadMask: showLoadMask}));
   }
 
   toggleOpenCloseIssue(i: IIssue) {

@@ -12,7 +12,7 @@
   width: 100%;
 }
 
-.input-parent {
+.input-parent-min-width {
   min-width: 500px;
 }
 

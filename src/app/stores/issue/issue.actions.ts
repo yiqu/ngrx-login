@@ -34,6 +34,7 @@ const UPDATE_ISSUE_SUCCESS: string = "[Issue Detail/Edit] Edit issue success";
 const UPDATE_ISSUE_FAILURE: string = "[Issue Detail/Edit] Edit issue failed";
 
 const RELOAD_ALL_ISSUES_REQUEST: string = "[Issue All/Refresh] Request Refresh All Issues";
+const USER_CURRENT_SEARCH_TERM: string = "[Issue Search/Input] User entered search term";
 
 export const createIssueStart = createAction(
   CREATE_ISSUE_START,
@@ -61,7 +62,7 @@ export const createIssueCleanupFailed = createAction(
 
 export const loadAllIssuesStart = createAction(
   LOAD_ALL_ISSUES_START,
-  props<{url: string, searchTerm: string | null}>()
+  props<{url: string, searchTerm: string | null, showLoadMask: boolean}>()
 )
 
 export const loadAllIssuesSuccess = createAction(

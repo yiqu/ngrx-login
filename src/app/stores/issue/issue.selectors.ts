@@ -128,3 +128,13 @@ export const refreshingAllIssuesLoading = createSelector(
     return state.issuesRefreshingLoading;
   }
 )
+
+export const getLastUserSearchTerm = createSelector(
+  selectIssueState,
+  (state): string | null => {
+    if (state.searchTerm && state.searchTerm.trim() === "") {
+      return null;
+    }
+    return state.searchTerm;
+  }
+)

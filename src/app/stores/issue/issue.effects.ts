@@ -11,7 +11,7 @@ import { DocumentChangeAction } from '@angular/fire/firestore';
 import { throwError } from 'rxjs';
 import { FirebasePromiseError } from 'src/app/shared/models/firebase.model';
 import * as firebase from 'firebase/app'
-import { CoreService } from 'src/app/shared/services/core.service';
+import { CoreService, ISSUES_PATH } from 'src/app/shared/services/core.service';
 
 
 @Injectable()
@@ -66,6 +66,18 @@ export class IssueEffects {
       })
     );
   });
+
+  onSuccessfullyCleanup$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromIssueActions.createIssueCleanupSuccess),
+      map(() => {
+        this.ts.getSnackbar("Issue created successfully");
+        return fromIssueActions.loadAllIssuesStart({url: ISSUES_PATH, searchTerm: null, showLoadMask: false});
+      })
+    );
+  });
+
+
 
   loadAllIssues$ = createEffect(() => {
     return this.actions$.pipe(
@@ -190,14 +202,7 @@ export class IssueEffects {
   }, {dispatch: false});
 
 
-  onSuccessfullyCleanup$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(fromIssueActions.createIssueCleanupSuccess),
-      tap(() => {
-        this.ts.getSnackbar("Issue created successfully");
-      })
-    );
-  }, {dispatch: false});
+
 
   onFailedCleanup$ = createEffect(() => {
     return this.actions$.pipe(

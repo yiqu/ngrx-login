@@ -84,7 +84,6 @@ export class CrudService {
    */
   readCollections<T>(url: string, searchTerm: string | null): Promise<firebase.default.firestore.QuerySnapshot<T>> {
     const collection: AngularFirestoreCollection<T> = this.afs.collection<T>(url);
-    console.log(searchTerm)
     if (searchTerm) {
       return collection.ref
       .where("description", ">=", searchTerm)

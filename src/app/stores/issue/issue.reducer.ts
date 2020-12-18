@@ -26,7 +26,7 @@ export function comparator(a: IIssue, b: IIssue) {
 }
 export const adapter = createEntityAdapter<IIssue>({
   selectId: selectId,
-  sortComparer: comparator // Sorting will be done in firebase instead of here
+  //sortComparer: comparator // Sorting will be done in firebase instead of here
 })
 
 export const inititalState = adapter.getInitialState({
@@ -84,6 +84,20 @@ export const issueEntityReducer = createReducer(
     }
   }),
 
+  on(issueActions.loadAllIssuesStart, (state, {url, searchTerm, showLoadMask}) => {
+    // dont cause loading mask to show if it's searching for issues
+    let shouldDisplayLoadingMask;// = searchTerm ? false : true;
+    shouldDisplayLoadingMask = showLoadMask;
+    return {
+      ...state,
+      issuesRefreshingLoading: shouldDisplayLoadingMask,
+      searchTerm: searchTerm,
+      loading: true,
+      fbError: false,
+      fbErrorMsg: null
+    }
+  }),
+
   on(issueActions.loadAllIssuesSuccess, (state, {data, updatedTime}) => {
     return adapter.setAll(data, {
       ...state,
@@ -93,20 +107,6 @@ export const issueEntityReducer = createReducer(
       fbError: false,
       fbErrorMsg: null
     })
-  }),
-
-  on(issueActions.loadAllIssuesStart, (state, {url, searchTerm}) => {
-    // dont cause loading mask to show if it's searching for issues
-    let shouldDisplayLoadingMask = searchTerm ? false : true;
-
-    return {
-      ...state,
-      issuesRefreshingLoading: shouldDisplayLoadingMask,
-      searchTerm: searchTerm,
-      loading: true,
-      fbError: false,
-      fbErrorMsg: null
-    }
   }),
 
   on(issueActions.loadAllIssuesFailed, (state, {errMsg}) => {

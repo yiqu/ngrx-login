@@ -7,6 +7,7 @@ import { IIssue, PriorityLevel } from 'src/app/shared/models/general.model';
 import { CoreService } from '../../shared/services/core.service';
 import * as fromUtils from '../../shared/general.utils';
 import { debounce } from 'lodash';
+import { IsMobileService } from 'src/app/shared/services/is-mobile.service';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class AllIssuesLandingComponent implements OnInit {
   newIssue: IIssue | undefined = undefined;
   searchCtrl: FormControl;
 
-  constructor(private cs: CoreService, private router: Router, private route: ActivatedRoute) {
+  constructor(private cs: CoreService, private router: Router, private route: ActivatedRoute,
+    public ims: IsMobileService) {
     this.searchCtrl = fromUtils.createFormControl2(null, false);
   }
 
@@ -36,20 +38,37 @@ export class AllIssuesLandingComponent implements OnInit {
       debounceTime(500),
       distinctUntilChanged((a,b) => {
         return a === b;
-      })
+      }),
+      takeUntil(this.compDest$)
     ).subscribe(
       (res: string) => {
-        let searchTerm: string | null = null;
-        if (res && (res.trim() !== "")) {
-          searchTerm = res.trim();
-        }
-        this.cs.getAllIssues(searchTerm);
+        this.searchForIssues(res);
       }
     );
+
+    this.cs.getUserSearchTerm$.pipe(
+      takeUntil(this.compDest$)
+    ).subscribe(
+      (res) => {
+        this.searchCtrl.setValue(res, {emitEvent: false});
+      }
+    )
   }
 
-  onSearch() {
+  onInputActionClick() {
+    if (this.searchCtrl.pristine) {
+      this.searchForIssues(this.searchCtrl.value);
+    } else {
+      this.searchCtrl.reset();
+    }
+  }
 
+  searchForIssues(text: string) {
+    let searchTerm: string | null = null;
+    if (text && (text.trim() !== "")) {
+      searchTerm = text.trim();
+    }
+    this.cs.getAllIssues(searchTerm);
   }
 
   onNewIssue() {

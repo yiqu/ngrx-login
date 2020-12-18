@@ -1,16 +1,16 @@
 <div class="row mt-3">
-  <div class="col-lg-12 actions">
-    <div class="input-parent">
-      <mat-form-field>
-        <mat-label>Search issues..</mat-label>
-        <input matInput placeholder="NgRx upgrade" [formControl]="searchCtrl">
-        <button mat-button matSuffix mat-icon-button (click)="onSearch()">
-          <mat-icon>search</mat-icon>
-        </button>
-      </mat-form-field>
-    </div>
-    <div class="btn-parent">
-      <div>
+  <div class="col-lg-12">
+    <div class="actions">
+      <div [class]="this.ims.mediaQList.matches ? '':'input-parent-min-width'">
+        <mat-form-field>
+          <mat-label>Search issues..</mat-label>
+          <input matInput placeholder="NgRx upgrade" [formControl]="searchCtrl" (keyup.enter)="searchForIssues(this.searchCtrl.value)">
+          <button mat-button matSuffix mat-icon-button (click)="onInputActionClick()">
+            <mat-icon> {{this.searchCtrl.pristine ? 'search': 'clear' }} </mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <div class="btn-parent">
         <button type="button" class="btn btn-success" (click)="onNewIssue()">New issue</button>
       </div>
     </div>

@@ -19,11 +19,11 @@ mat-list-item .mat-icon {
 }
 
 mat-list-item .mat-icon.open {
-  background-color: #3333ff;
+  background-color: #28a745;
 }
 
 mat-list-item .mat-icon.closed {
-  background-color: #00cc44;
+  background-color: #888;
 }
 
 .no-issues {
