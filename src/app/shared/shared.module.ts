@@ -2,7 +2,9 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogConfirmComponent } from './dialog/dialog.component';
+import { DraggableDialogComponent } from './draggable-dialog/draggable.component';
 import { MaterialModuleBundle } from './material-bundle';
+import { PipeBundleModule } from './pipes/pipe-bundle.module';
 
 @NgModule({
   imports: [
@@ -10,14 +12,17 @@ import { MaterialModuleBundle } from './material-bundle';
     FormsModule,
     ReactiveFormsModule,
     MaterialModuleBundle,
+    PipeBundleModule
   ],
 
   exports: [
-    DialogConfirmComponent
+    DialogConfirmComponent,
+    DraggableDialogComponent
   ],
 
   declarations: [
-    DialogConfirmComponent
+    DialogConfirmComponent,
+    DraggableDialogComponent
   ],
 
   providers: [

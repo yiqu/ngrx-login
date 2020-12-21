@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import memo from 'memo-decorator';
+import { DateDisplayPipe } from './time-utils.pipe';
 
 @Pipe({
   name: 'tableColumnDisplay',
@@ -32,19 +33,15 @@ export class TableColumnDisplayPipe implements PipeTransform {
 })
 export class TableDataDisplayPipe implements PipeTransform {
 
-  constructor() {
+  constructor(private dp: DateDisplayPipe) {
   }
 
   transform(value: any, colId: string): any {
     let res: any = value;
 
     switch(colId) {
-      case "name": {
-        res = res;
-        break;
-      }
-      case "example": {
-        res = res;
+      case "time": {
+        res = this.dp.transform(res, "HMS");
         break;
       }
     }
@@ -52,3 +49,5 @@ export class TableDataDisplayPipe implements PipeTransform {
   }
 
 }
+
+

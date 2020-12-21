@@ -22,4 +22,6 @@
 
 </div>
 
-
+<app-draggable-dialog
+  *ngIf="(!this.ims.mediaQList.matches) && (this.ms.getShowMetaPopout$ | async)" class="z-100">
+</app-draggable-dialog>

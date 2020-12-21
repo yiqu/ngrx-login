@@ -224,3 +224,7 @@ mat-list-item mat-icon {
   display: flex;
   justify-content: center;
 }
+
+.z-100 {
+  z-index: 100;
+}

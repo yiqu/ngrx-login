@@ -12,8 +12,10 @@ export const environment = {
     storageBucket: "ngrx-qu.appspot.com",
     messagingSenderId: "183273342773",
     appId: "1:183273342773:web:a4a3d2d450f2bd4c156e7c",
-    measurementId: "G-46HRNZYT10"
-  }
+    measurementId: "G-46HRNZYT10",
+  },
+  reduxMetaLogUserActions: false,
+  reduxMetaLogNgrxActions: false
 };
 
 /*

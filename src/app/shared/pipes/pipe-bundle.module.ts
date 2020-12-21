@@ -40,6 +40,8 @@ import { CreatedStatusToCssClassPipe, IssueOpenStatusPipe, OpenStatusToCssClassP
     ValueCountPipe
   ],
 
-  providers: [],
+  providers: [
+    DateDisplayPipe
+  ],
 })
 export class PipeBundleModule { }

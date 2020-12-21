@@ -41,3 +41,9 @@
 .user-dropdown {
   height: 3rem;
 }
+
+.toggle-parent {
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+}

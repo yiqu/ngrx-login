@@ -11,6 +11,9 @@ export class DateDisplayPipe implements PipeTransform {
         case "FROMNOW": {
           return moment(dateMilli).fromNow();
         }
+        case "HMS": {
+          return moment(dateMilli).format("h:mm:ss a");
+        }
         case "MDY": {
           return moment(dateMilli).format("MM-DD-YYYY");
         }

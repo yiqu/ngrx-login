@@ -9,6 +9,7 @@ import { Subject } from 'rxjs';
 // import 'firebase/database';
 import { environment } from 'src/environments/environment';
 import { IsMobileService } from './shared/services/is-mobile.service';
+import { AppMetaService } from './shared/services/meta.service';
 import { AppState } from './stores/global/app.reducer';
 import * as fromIssuesActions from './stores/issue/issue.actions';
 
@@ -29,8 +30,8 @@ export class AppComponent implements OnInit {
   mobileQuery!: MediaQueryList;
   private _mobileQueryListener!: () => void;
 
-  constructor(public changeDetectorRef: ChangeDetectorRef, private ims: IsMobileService, public media: MediaMatcher,
-    private store: Store<AppState>) {
+  constructor(public changeDetectorRef: ChangeDetectorRef, public ims: IsMobileService, public media: MediaMatcher,
+    private store: Store<AppState>, public ms: AppMetaService) {
 
     this.setMobileDetection();
   }

@@ -6,6 +6,10 @@ import { headShakeAnimation, rotateAnimation, tadaAnimation } from 'angular-anim
 import { MenuItem } from '../shared/models/nav-item.model';
 import { environment } from '../../environments/environment';
 import { CoreService } from '../shared/services/core.service';
+import { FormControl } from '@angular/forms';
+import { createFormControl2 } from '../shared/general.utils';
+import { AppMetaService } from '../shared/services/meta.service';
+import { IsMobileService } from '../shared/services/is-mobile.service';
 
 const defaultProfileImg: string = "assets/user/default-user5.png";
 
@@ -28,6 +32,7 @@ export class TopNavComponent implements OnInit, OnDestroy, AfterViewInit {
   swingState: boolean = false;
   userMenuItems: MenuItem[] = [];
   avartarImgSrc: string = defaultProfileImg;
+  actionTrackerCtrl: FormControl;
 
   @Output()
   navToggle: EventEmitter<any> = new EventEmitter<any>();
@@ -35,13 +40,21 @@ export class TopNavComponent implements OnInit, OnDestroy, AfterViewInit {
   @Output()
   logoClick: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(public router: Router, public route: ActivatedRoute) {
-
+  constructor(public router: Router, public route: ActivatedRoute, private ms: AppMetaService,
+    public ims: IsMobileService) {
+    this.actionTrackerCtrl = createFormControl2(false, false);
   }
 
   ngOnInit() {
     this.animateLogoOnStart();
 
+    this.actionTrackerCtrl.valueChanges.pipe(
+      takeUntil(this.compDest$)
+    ).subscribe(
+      (res) => {
+        this.ms.toggleActionTracker();
+      }
+    )
   }
 
   ngAfterViewInit() {

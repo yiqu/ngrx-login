@@ -17,6 +17,8 @@ import { appEffects } from './stores/global/app.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ToastrModule } from 'ngx-toastr';
 import { FooterModule } from './footer/footer.module';
+import { SharedBudleModule } from './shared/shared.module';
+import { metaReducers } from './stores/global/meta-reducer';
 
 
 @NgModule({
@@ -27,10 +29,12 @@ import { FooterModule } from './footer/footer.module';
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    StoreModule.forRoot(appReducers),
+    StoreModule.forRoot(appReducers, {
+      metaReducers: metaReducers
+    }),
     EffectsModule.forRoot(appEffects),
     StoreDevtoolsModule.instrument({
-      maxAge: 15,
+      maxAge: 45,
       logOnly: environment.production
     }),
     StoreRouterConnectingModule.forRoot({
@@ -60,6 +64,7 @@ import { FooterModule } from './footer/footer.module';
         warning: 'toast-warning'
       }
     }),
+    SharedBudleModule
   ],
 
   providers: [],
