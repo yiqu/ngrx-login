@@ -30,7 +30,8 @@ import { FooterModule } from './footer/footer.module';
     StoreModule.forRoot(appReducers),
     EffectsModule.forRoot(appEffects),
     StoreDevtoolsModule.instrument({
-      maxAge: 15
+      maxAge: 15,
+      logOnly: environment.production
     }),
     StoreRouterConnectingModule.forRoot({
       stateKey: 'myRouter',
