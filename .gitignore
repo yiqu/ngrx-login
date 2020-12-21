@@ -15,6 +15,7 @@ chrome-profiler-events*.json
 speed-measure-plugin*.json
 
 # IDEs and editors
+# run git rm --cached .folder/* after adding here
 /.idea
 .project
 .classpath
