@@ -5,6 +5,7 @@ import { IssueDetailComponent } from './issue-detail/issue-detail.component';
 import { AllIssuesLandingComponent } from './all/all.component';
 import { IssueDetailViewComponent } from './issue-detail/view/view.component';
 import { IssueDetailEditComponent } from './issue-detail/edit/edit.component';
+import { CanDeactivateEditComponentGuard, CanDeactivateGuard } from '../shared/guards/can-deactivate.guard';
 
 export const routes: Routes = [
   { path: "", component: CoreComponent,
@@ -16,7 +17,7 @@ export const routes: Routes = [
             // { path: ':mode', component: IssueDetailViewComponent },
             { path: '', redirectTo: 'view', pathMatch: 'full' },
             { path: 'view', component: IssueDetailViewComponent },
-            { path: 'edit', component: IssueDetailEditComponent },
+            { path: 'edit', component: IssueDetailEditComponent, canDeactivate: [CanDeactivateEditComponentGuard] },
           ]
       }
     ]

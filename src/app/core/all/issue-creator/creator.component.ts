@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, Input, OnChanges, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Form, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IIssue, IssuePriority, PriorityLevel } from 'src/app/shared/models/general.model';
@@ -7,6 +7,8 @@ import { CrudService } from 'src/app/shared/services/crud.service';
 import * as gUtils from '../../../shared/general.utils';
 import * as fromValidators from '../../../shared/form-validators/general-form.validator';
 import { Update } from '@ngrx/entity';
+import { Observable } from 'rxjs';
+import { WindoConfirmService } from 'src/app/shared/services/confirm.service';
 
 const ISSUE_PATH: string = "issues";
 
@@ -16,6 +18,18 @@ const ISSUE_PATH: string = "issues";
   styleUrls: ['./creator.component.css']
 })
 export class IssueCreatorComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
+
+ /**
+   * Check before letting page refresh
+   * RETURN false to pop out dialog
+   */
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+    if (this.changesSaved) {
+      return true;
+    }
+    return false;
+  }
 
   @Input()
   issueData: IIssue | undefined = undefined;
@@ -36,15 +50,18 @@ export class IssueCreatorComponent implements OnInit, OnChanges, AfterViewInit, 
     return undefined;
   }
 
+  get changesSaved(): boolean | undefined {
+    return this.issueFg?.pristine;
+  }
+
   constructor(private fb: FormBuilder, private cs: CrudService, private router: Router,
-    private route: ActivatedRoute, public cos: CoreService) {
+    private route: ActivatedRoute, public cos: CoreService, private confirmService: WindoConfirmService) {
       this.priorityList = gUtils.PRIORITY_LIST;
       this.issueFg = undefined;
       this.createInitIssueFg();
   }
 
   ngOnChanges() {
-    //console.log("Issue passedin: ",this.issueData)
     this.createIssueFg(this.issueData);
   }
 
@@ -95,6 +112,7 @@ export class IssueCreatorComponent implements OnInit, OnChanges, AfterViewInit, 
         this.onIssueCancel();
       }
     }
+    this.issueFg?.markAsPristine();
   }
 
   createFullIssueObject(i: IIssue): IIssue {
