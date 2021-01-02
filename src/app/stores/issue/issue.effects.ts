@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
+import { OnInitEffects } from "@ngrx/effects";
 import { tap, concatMap, switchMap, map, mergeMap, catchError, exhaustMap } from 'rxjs/operators';
 import { IIssue } from 'src/app/shared/models/general.model';
 import { CrudService } from 'src/app/shared/services/crud.service';
@@ -12,13 +13,21 @@ import { throwError } from 'rxjs';
 import { FirebasePromiseError } from 'src/app/shared/models/firebase.model';
 import * as firebase from 'firebase/app'
 import { CoreService, ISSUES_PATH } from 'src/app/shared/services/core.service';
+import { Action } from '@ngrx/store';
 
 
 @Injectable()
-export class IssueEffects {
+export class IssueEffects implements OnInitEffects {
 
   constructor(public actions$: Actions, public ts: ToasterService,
     private cs: CrudService, private cos: CoreService) {
+  }
+
+  /**
+   * Get all issues after this Effects is registered
+   */
+  ngrxOnInitEffects(): Action {
+    return fromIssueActions.loadAllIssuesStart({url: ISSUES_PATH, searchTerm: null, showLoadMask: true});
   }
 
   onAddIssue$ = createEffect(() => {
