@@ -1,0 +1,41 @@
+<div class="row mb-3 roboto text-center mt-3">
+  <div class="col-sm-12">
+    <div class="mb-2">
+      {{ title }}
+    </div>
+    <div class="subtitle mb-2">
+      {{ subtitle }}
+    </div>
+    <div *ngIf="resetFg" class="signin-card-parent">
+      <mat-card class="signin-card" [formGroup]="resetFg">
+        <mat-card-content>
+
+          <div class="signinAvatarParent mb-3">
+            <img [src]="avartarImgSrc" class="img-h-100" alt="avartar">
+          </div>
+
+          <mat-form-field appearance="outline" class="mb-1 full-w">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Email" [formControlName]="'email'" (keyup.enter)="onSubmit()">
+            <mat-icon matSuffix>email</mat-icon>
+            <mat-hint>Email associated with your account.</mat-hint>
+            <mat-error>Invalid email format.</mat-error>
+          </mat-form-field>
+
+          <div *ngIf="false">
+            <div class="alert alert-warning">
+              Error occured
+            </div>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <div class="center-align">
+            <button mat-button class="signin-btn" (click)="onSubmit()"
+              [disabled]="emailFc.invalid">{{ submitBtnText }}</button>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

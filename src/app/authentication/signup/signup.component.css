@@ -1,0 +1,51 @@
+.signin-card {
+  min-width: 20rem;
+}
+
+.signin-card-parent {
+  display: flex;
+  justify-content: center;
+}
+
+.signinAvatarParent {
+  height: 50px;
+}
+
+.border-circ {
+  border-radius: 96px;
+}
+
+.signin-btn {
+  width: 100%;
+  color: #1a8cff;
+}
+
+.subtitle {
+  font-size: 0.8rem;
+}
+
+.err-msg-parent {
+  max-width: 25rem;
+  margin: auto;
+}
+
+
+@media only screen and (min-width: 530px) {
+  .password-input {
+    margin-right: 0.5rem;
+  }
+}
+
+@media only screen and (max-width: 530px) {
+  .password-input {
+    margin-right: 0rem;
+    width: 100%;
+  }
+
+  .repassword-input {
+    width: 100%;
+  }
+}
+
+
+

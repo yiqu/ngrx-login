@@ -4,6 +4,7 @@ import { filter, map } from "rxjs/operators";
 import { CoreService } from "src/app/shared/services/core.service";
 import { ToasterService } from "src/app/shared/services/toaster.service";
 import { environment } from "src/environments/environment";
+import { AuthEffects } from "../auth/auth.effects";
 import * as fromMetaActions from '../meta/meta.actions';
 import { UserAction } from "../meta/meta.state";
 
@@ -14,7 +15,7 @@ export class AppGlobalEffects {
   }
 
   /**
-   * Log all actions taken to state. ONLY ON PRODUCTION
+   * Log all actions taken to state. ONLY ON PRODUCTION.
    */
   catchAllUserActions$ = createEffect(() => {
     return this.actions$.pipe(
@@ -41,5 +42,5 @@ export class AppGlobalEffects {
 
 
 export const appEffects = [
-  AppGlobalEffects
+  AppGlobalEffects, AuthEffects
 ]

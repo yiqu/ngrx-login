@@ -43,6 +43,10 @@ export class TopNavComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(public router: Router, public route: ActivatedRoute, private ms: AppMetaService,
     public ims: IsMobileService) {
     this.actionTrackerCtrl = createFormControl2(false, false);
+
+    this.userMenuItems.push(
+      new MenuItem("record_voice_over", "Sign in", "signin")
+    )
   }
 
   ngOnInit() {
