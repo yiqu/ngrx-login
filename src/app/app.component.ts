@@ -10,6 +10,7 @@ import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IsMobileService } from './shared/services/is-mobile.service';
 import { AppMetaService } from './shared/services/meta.service';
+import { RestService } from './shared/services/rest.service';
 import { AppState } from './stores/global/app.reducer';
 import * as fromIssuesActions from './stores/issue/issue.actions';
 
@@ -31,7 +32,7 @@ export class AppComponent implements OnInit {
   private _mobileQueryListener!: () => void;
 
   constructor(public changeDetectorRef: ChangeDetectorRef, public ims: IsMobileService, public media: MediaMatcher,
-    private store: Store<AppState>, public ms: AppMetaService) {
+    private store: Store<AppState>, public ms: AppMetaService, private rs: RestService) {
 
     this.setMobileDetection();
   }

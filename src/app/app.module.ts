@@ -19,6 +19,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { FooterModule } from './footer/footer.module';
 import { SharedBudleModule } from './shared/shared.module';
 import { metaReducers } from './stores/global/meta-reducer';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { metaReducers } from './stores/global/meta-reducer';
 
   imports: [
     BrowserModule,
+    HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     StoreModule.forRoot(appReducers, {
       metaReducers: metaReducers
