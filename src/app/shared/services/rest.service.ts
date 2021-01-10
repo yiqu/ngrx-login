@@ -7,6 +7,9 @@ import { Injectable } from '@angular/core';
 export class RestService {
 
   constructor(private http: HttpClient) {
+    // this.http.get("api/users/all").subscribe((res) => {
+    //   console.log(res)
+    // })
   }
 
 }
