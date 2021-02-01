@@ -5,14 +5,14 @@ import * as issueActions from './issue.actions';
 
 export interface IssueEntityState extends EntityState<IIssue> {
   loading: boolean;
-  issuesRefreshingLoading: boolean;
+  issuesRefreshingLoading?: boolean;
   fbError: boolean;
-  fbErrorMsg: string | null;
+  fbErrorMsg?: string | null;
   allIssuesLastFetched: number;
-  selectedIssueId: string | undefined;
-  issueEditMode: boolean;
-  lastRefreshAllRequest: number;
-  searchTerm: string | null;
+  selectedIssueId?: string | undefined;
+  issueEditMode?: boolean;
+  lastRefreshAllRequest?: number;
+  searchTerm?: string | null;
 }
 
 export function selectId(i: IIssue) {

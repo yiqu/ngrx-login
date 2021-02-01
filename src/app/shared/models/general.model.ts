@@ -15,7 +15,7 @@ export interface IIssue {
   description: string;
   dateCreated?: number;
   lastEdited?: number;
-  priority?: IssuePriority
+  priority?: IssuePriority;
   author?: string;
   reactions?: number;
   open: boolean;

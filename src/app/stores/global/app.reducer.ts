@@ -7,8 +7,8 @@ import * as fromUiReducer from '../ui/ui.reducer';
 
 
 export interface AppState {
-  uiState: UiState,
-  myRouter: RouterReducerState<any>,
+  uiState?: UiState,
+  myRouter?: RouterReducerState<any>,
   appMeta: MetaState
 }
 

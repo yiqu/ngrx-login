@@ -1,3 +1,5 @@
+import firebase from 'firebase/app';
+
 export class User {
   constructor(public id?: string, public display?: string, public user?: any) {
     this.id = id ? id : "UnknownID";
@@ -27,7 +29,7 @@ export class VerifiedUser {
     public isAnonymous: boolean | undefined,
     public lastLoginAt: string | undefined | null,
     public photoURL: string | undefined | null,
-    public providerData: (firebase.default.UserInfo | null)[] | undefined,
+    public providerData: (firebase.UserInfo | null)[] | undefined,
     public stsTokenManager: any,
     public tenantId: string | undefined | null,
     public uid: string | undefined | null,

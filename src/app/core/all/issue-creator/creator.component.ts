@@ -35,7 +35,7 @@ export class IssueCreatorComponent implements OnInit, OnChanges, AfterViewInit, 
   issueData: IIssue | undefined = undefined;
 
   @Input()
-  isEditMode: boolean | null = false;
+  isEditMode: boolean | null | undefined = false;
 
   @ViewChild("titleInput")
   titleInput?: ElementRef;

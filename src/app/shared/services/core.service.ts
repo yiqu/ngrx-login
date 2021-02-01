@@ -29,10 +29,10 @@ export class CoreService {
   public getIssueByParamId = (id: string) => this.store.select(fromIssueSelectors.getIssueByParamId(id));
   public getIssueBySelectedId$: Observable<IIssue | undefined> = this.store.select(fromIssueSelectors.getIssueBySelectedId);
   public issueOverallLoading$: Observable<boolean> = this.store.select(fromIssueSelectors.getIssuesOverallLoading);
-  public getIssueEditMode$: Observable<boolean> = this.store.select(fromIssueSelectors.getIssueEditMode);
-  public refreshAllIssuesRequest$: Observable<number> = this.store.select(fromIssueSelectors.refreshAllIssuesRequestDate);
-  public issuesRefreshLoading$: Observable<boolean> = this.store.select(fromIssueSelectors.refreshingAllIssuesLoading);
-  public getUserSearchTerm$: Observable<string | null> = this.store.select(fromIssueSelectors.getLastUserSearchTerm);
+  public getIssueEditMode$: Observable<boolean | undefined> = this.store.select(fromIssueSelectors.getIssueEditMode);
+  public refreshAllIssuesRequest$: Observable<number | undefined> = this.store.select(fromIssueSelectors.refreshAllIssuesRequestDate);
+  public issuesRefreshLoading$: Observable<boolean | undefined> = this.store.select(fromIssueSelectors.refreshingAllIssuesLoading);
+  public getUserSearchTerm$: Observable<string | null | undefined> = this.store.select(fromIssueSelectors.getLastUserSearchTerm);
 
   currentIssueCounter: number = 1;
 

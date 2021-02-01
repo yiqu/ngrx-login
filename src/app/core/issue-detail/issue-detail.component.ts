@@ -22,7 +22,7 @@ export class IssueDetailComponent implements OnInit, OnDestroy {
 
   compDest$: Subject<any> = new Subject<any>();
   issue: IIssue | undefined = undefined;
-  editMode: boolean = false;
+  editMode: boolean | undefined = false;
 
   constructor(private router: Router, private route: ActivatedRoute, public cs: CoreService,
     private store: Store<AppState>, private crs: CrudService, public dialog: MatDialog) {

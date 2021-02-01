@@ -109,7 +109,7 @@ export const getIssueBySelectedId = createSelector(
 
 export const getIssueEditMode = createSelector(
   selectIssueState,
-  (state): boolean => {
+  (state): boolean | undefined => {
     return state.issueEditMode;
   }
 )
@@ -117,21 +117,21 @@ export const getIssueEditMode = createSelector(
 
 export const refreshAllIssuesRequestDate = createSelector(
   selectIssueState,
-  (state): number => {
+  (state): number | undefined => {
     return state.lastRefreshAllRequest;
   }
 )
 
 export const refreshingAllIssuesLoading = createSelector(
   selectIssueState,
-  (state): boolean => {
+  (state): boolean | undefined => {
     return state.issuesRefreshingLoading;
   }
 )
 
 export const getLastUserSearchTerm = createSelector(
   selectIssueState,
-  (state): string | null => {
+  (state): string | null | undefined=> {
     if (state.searchTerm && state.searchTerm.trim() === "") {
       return null;
     }
