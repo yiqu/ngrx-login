@@ -5,6 +5,7 @@ import { DialogConfirmComponent } from './dialog/dialog.component';
 import { DraggableDialogComponent } from './draggable-dialog/draggable.component';
 import { MaterialModuleBundle } from './material-bundle';
 import { PipeBundleModule } from './pipes/pipe-bundle.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   imports: [
@@ -12,12 +13,15 @@ import { PipeBundleModule } from './pipes/pipe-bundle.module';
     FormsModule,
     ReactiveFormsModule,
     MaterialModuleBundle,
-    PipeBundleModule
+    PipeBundleModule,
+    FlexLayoutModule
   ],
 
   exports: [
     DialogConfirmComponent,
-    DraggableDialogComponent
+    DraggableDialogComponent,
+    FlexLayoutModule,
+    MaterialModuleBundle
   ],
 
   declarations: [

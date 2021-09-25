@@ -1,4 +1,4 @@
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, DocumentChangeAction } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection  } from '@angular/fire/compat/firestore';
 import { Injectable } from '@angular/core';
 import { from, Observable } from 'rxjs';
 import { AppState } from 'src/app/stores/global/app.reducer';
@@ -26,7 +26,7 @@ export class CrudService {
   listenForIssueChanges() {
     this.readCollectionsOnChanges<IIssue>(ISSUES_PATH, (res) => {
       console.log(res.size)
-      res.docChanges().forEach((doc: firebase.default.firestore.DocumentChange<IIssue>) => {
+      res.docChanges().forEach((doc) => {
         console.log(doc.type, doc.doc.data())
         this.updateIssuesStore(doc);
       });

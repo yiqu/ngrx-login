@@ -9,6 +9,9 @@ const routes: Routes = [
   { path: 'issues',
     loadChildren: () => import('./core/core.module').then(m => m.CoreModule)
   },
+  { path: 'todo',
+    loadChildren: () => import('./todos/todo.module').then(m => m.TodoModule)
+  },
   {
     path: "auth",
     loadChildren: () => import('./authentication/auth.module').then(m => m.AuthModule)

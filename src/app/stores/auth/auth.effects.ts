@@ -6,25 +6,21 @@ import { ToasterService } from "src/app/shared/services/toaster.service";
 import { environment } from "src/environments/environment";
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import * as authActions from './auth.actions';
 import { VerifiedUser } from "src/app/shared/models/user.model";
 import * as fromFirebaseUtils from '../../shared/services/firebase.utils';
-
+import { getAuth, createUserWithEmailAndPassword, Auth } from "firebase/auth";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class AuthEffects {
 
-  constructor(public actions$: Actions, public ts: ToasterService, public auth: AngularFireAuth) {
+  private auth: Auth = getAuth();
+
+  constructor(public actions$: Actions, public ts: ToasterService, public router: Router) {
   }
 
-  userAuthStateChange$ = createEffect(() => {
-    return this.auth.authState.pipe(
-      map((u) => {
-        console.log("user is ", u)
-      })
-    )
-  }, {dispatch: false});
 
   registerNewUserEmailPassword$ = createEffect(() => {
     return this.actions$.pipe(
@@ -33,23 +29,31 @@ export class AuthEffects {
         const email: string = data.email;
         const pw: string = data.password;
 
-        return firebase.default.auth().createUserWithEmailAndPassword(email, pw).then(
-          (user: firebase.default.auth.UserCredential) => {
-
+        return createUserWithEmailAndPassword(this.auth, email, pw).then(
+          (user) => {
             const verified = new VerifiedUser(new Date().getTime(), user.user?.displayName, user.user?.email, user.user?.emailVerified,
               user.user?.isAnonymous, null, user.user?.photoURL, user.user?.providerData, user.user?.metadata, user.user?.tenantId,
               user.user?.uid, user.user?.phoneNumber, []);
 
             return authActions.authRegisterSuccess({user: verified, redirect: false, showAlert: false});
-          },
-          (rej) => {
+          }
+        )
+        .catch((rej) =>  {
             console.log("err: ",rej);
             const authErrMsg = fromFirebaseUtils.getFirebaseErrorMsg(rej);
             return authActions.authRegisterFailed({errorMsg: authErrMsg});
-          }
-        )
+        })
       })
     );
   });
+
+  effectName$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(authActions.authRegisterSuccess),
+      map(() => {
+        this.router.navigate(['/']);
+      })
+    );
+  }, {dispatch: false});
 
 }
