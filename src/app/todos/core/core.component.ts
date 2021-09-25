@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatListOption, MatSelectionListChange } from '@angular/material/list';
+import { TodoItem } from '../store/todo.state';
 import { TodoService } from '../todo.service';
 
 @Component({
@@ -14,5 +16,19 @@ export class TodoCoreComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  trackByFn(index: number, item: TodoItem): string {
+    return item.id;
+  }
+
+  onSelectionChange(change: MatSelectionListChange) {
+    let selectedIds: string[] = [];
+    if (change.source.selectedOptions.selected) {
+      selectedIds = change.source.selectedOptions.selected.map((sel) => {
+        return sel.value?.id;
+      });
+    }
+    this.ts.updateItemsSelection(selectedIds);
   }
 }

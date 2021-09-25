@@ -10,6 +10,8 @@ const SAVE_ALL_TODO_ITEMS_START: string = "[Todo/API] Save todo items start";
 const SAVE_ALL_TODO_ITEMS_SUCCESS: string = "[Todo/API] Save todo items success";
 const SAVE_ALL_TODO_ITEMS_FAILED: string = "[Todo/API] Save todo items failed";
 
+const TOGGLE_SELECT_ITEM: string = "[Todo/UI] Toggle select a todo item";
+
 export const getAllItemsStart = createAction(
   GET_ALL_TODO_ITEMS_START,
   props<{params?: any}>()
@@ -38,4 +40,9 @@ export const saveAllItemsSuccess = createAction(
 export const saveAllItemsFailed = createAction(
   SAVE_ALL_TODO_ITEMS_FAILED,
   props<{errMsg: string}>()
+)
+
+export const toggleTodoItemSelection = createAction(
+  TOGGLE_SELECT_ITEM,
+  props<{ids: string[]}>()
 )

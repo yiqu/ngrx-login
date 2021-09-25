@@ -227,3 +227,7 @@ mat-list-item mat-icon {
 .z-100 {
   z-index: 100;
 }
+
+mat-list-option.mat-list-item {
+  width: 3rem !important;
+}

@@ -4,4 +4,5 @@ export interface TodoItem {
   dateCreated: number;
   isFinished: boolean;
   content: string;
+  selected?: boolean;
 }

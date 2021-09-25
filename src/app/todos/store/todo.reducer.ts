@@ -7,7 +7,7 @@ export interface TodoEntityState extends EntityState<TodoItem> {
   apiLoading: boolean;
   error?: boolean;
   errMsg?: string;
-  selectedIds?: string[];
+  selectedIds: {[key: string]: boolean};
   lastFetched?: number;
 }
 
@@ -16,7 +16,7 @@ export function selectId(i: TodoItem) {
 }
 export function comparator(a: TodoItem, b: TodoItem) {
   if (a.dateCreated && b.dateCreated) {
-    return a.dateCreated < b.dateCreated ? 1 : -1;
+    return a.dateCreated > b.dateCreated ? 1 : -1;
   }
   return 1;
 }
@@ -28,7 +28,7 @@ export const adapter: EntityAdapter<TodoItem> = createEntityAdapter<TodoItem>({
 
 export const inititalState: TodoEntityState = adapter.getInitialState({
   apiLoading: false,
-  selectedIds: [],
+  selectedIds: {},
   lastFetched: 0
 });
 
@@ -36,14 +36,14 @@ export const inititalState: TodoEntityState = adapter.getInitialState({
 export const todoEntityReducer = createReducer(
   inititalState,
 
-  on(fromTodoActions.getAllItemsStart, (state, {params}) => {
+  on(fromTodoActions.getAllItemsStart, (state, { params }) => {
     return {
       ...state,
       apiLoading: true,
     }
   }),
 
-  on(fromTodoActions.getAllItemsSuccess, (state, {data, fetchTime}) => {
+  on(fromTodoActions.getAllItemsSuccess, (state, { data, fetchTime }) => {
     return adapter.setAll(data, {
       ...state,
       apiLoading: false,
@@ -53,12 +53,27 @@ export const todoEntityReducer = createReducer(
     });
   }),
 
-  on(fromTodoActions.getAllItemsFailed, (state, {errMsg}) => {
+  on(fromTodoActions.getAllItemsFailed, (state, { errMsg }) => {
     return {
       ...state,
       apiLoading: false,
       errMsg,
       error: true
+    }
+  }),
+
+  on(fromTodoActions.toggleTodoItemSelection, (state, { ids }) => {
+    const idsDict: {[key: string]: boolean} = {};
+    if (ids && ids.length > 0) {
+      ids.forEach((id) => {
+        idsDict[id] = true;
+      });
+    }
+
+
+    return {
+      ...state,
+      selectedIds: idsDict
     }
   }),
 

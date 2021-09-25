@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AppState } from '../stores/global/app.reducer';
 import { TodoItem } from './store/todo.state';
+import * as fromTodoSelectors from './store/todo.selectors';
+import * as fromTodoActions from './store/todo.actions';
+
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +14,17 @@ import { TodoItem } from './store/todo.state';
 export class TodoService {
 
   public todoCollection: AngularFirestoreCollection<TodoItem> = this.afs.collection<TodoItem>('todoList');
+  public allTodoItems$: Observable<TodoItem[]> = this.store.select(fromTodoSelectors.selectAllTodoItems);
+  public selectedIds$: Observable<{[key: string]: boolean}> = this.store.select(fromTodoSelectors.selectCurrentlySelectedIds);
+  public lastFetchedTime$: Observable<number> = this.store.select(fromTodoSelectors.selectLastFetchedTime);
+  public isItemSelectedById =
+    (id: string | undefined): Observable<boolean> => this.store.select(fromTodoSelectors.isItemSelected(id));
 
-  constructor(private afs: AngularFirestore) {
+  constructor(private afs: AngularFirestore, public store: Store<AppState>) {
+  }
+
+  updateItemsSelection(ids: string[]) {
+    this.store.dispatch(fromTodoActions.toggleTodoItemSelection({ids: ids}));
   }
 
   createFakeItems(): void {

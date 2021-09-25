@@ -1,8 +1,32 @@
 <div fxLayout="column" fxLayoutGap="15px" fxLayoutAlign="start start" class="mt-3">
   <div>
-    Todo List
+    Todo List with optimistic state update
   </div>
-  <div>
 
+  <div class="w-100">
+    <ng-container *ngIf="(this.ts.allTodoItems$ | async) as todoItems">
+
+      <mat-selection-list #todoList (selectionChange)="onSelectionChange($event)">
+        <mat-list-option [checkboxPosition]="'before'" [color]="'accent'">
+        </mat-list-option>
+        <ng-container *ngFor="let item of todoItems; trackBy: trackByFn">
+          <div fxLayout="row" fxLayoutAlign="start center" class="mb-2">
+            <mat-list-option [selected]="((this.ts.isItemSelectedById(item.id)) | async)"
+              [checkboxPosition]="'before'" [color]="'primary'" [value]="item">
+            </mat-list-option>
+            <div fxLayout="column" fxLayoutAlign="center start">
+              <div>
+                {{item.title}}
+              </div>
+              <div class="text-muted">
+                {{item.dateCreated}}
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+      </mat-selection-list>
+
+    </ng-container>
   </div>
 </div>
