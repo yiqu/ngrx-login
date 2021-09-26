@@ -2,7 +2,6 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Store } from '@ngrx/store';
-import * as firebase from 'firebase/app';
 import { Subject } from 'rxjs';
 // import 'firebase/analytics';
 // import 'firebase/auth';

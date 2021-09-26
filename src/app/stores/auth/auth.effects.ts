@@ -4,7 +4,6 @@ import { exhaustMap, filter, map } from "rxjs/operators";
 import { CoreService } from "src/app/shared/services/core.service";
 import { ToasterService } from "src/app/shared/services/toaster.service";
 import { environment } from "src/environments/environment";
-import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import * as authActions from './auth.actions';

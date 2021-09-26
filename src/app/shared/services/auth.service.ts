@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import * as fromAuthActions from '../../stores/auth/auth.actions';
 import { Store } from '@ngrx/store';
