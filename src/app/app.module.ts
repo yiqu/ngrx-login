@@ -22,8 +22,7 @@ import { SharedBudleModule } from './shared/shared.module';
 import { metaReducers } from './stores/global/meta-reducer';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule} from '@angular/fire/compat'
-import * as firebase from 'firebase/app';
-
+import firebase from 'firebase/compat/app';
 
 firebase.initializeApp(environment.firebaseConfig);
 
