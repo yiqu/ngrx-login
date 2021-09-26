@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatListOption, MatSelectionListChange } from '@angular/material/list';
-import { TodoItem } from '../store/todo.state';
+import { TodoItem, ToggleStatus } from '../store/todo.state';
 import { TodoService } from '../todo.service';
 
 @Component({
@@ -9,6 +10,8 @@ import { TodoService } from '../todo.service';
   styleUrls: ['./core.component.scss']
 })
 export class TodoCoreComponent implements OnInit {
+
+  selectAllCheckValue = {id: 'selectedAll'};
 
   constructor(public ts: TodoService) {
 
@@ -30,5 +33,15 @@ export class TodoCoreComponent implements OnInit {
       });
     }
     this.ts.updateItemsSelection(selectedIds);
+  }
+
+  onToggleAllChange(change: MatCheckboxChange) {
+    console.log(change)
+    if (change.checked) {
+      this.ts.updateItemsSelection([], ToggleStatus.ALL);
+    } else {
+      this.ts.updateItemsSelection([], ToggleStatus.NONE);
+    }
+
   }
 }

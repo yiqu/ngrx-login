@@ -6,3 +6,12 @@ export interface TodoItem {
   content: string;
   selected?: boolean;
 }
+
+export enum ToggleStatus {
+  ALL = 'ALL',
+  NONE = 'NONE'
+}
+
+export interface SelectedIds {
+  [key: string]: boolean;
+}

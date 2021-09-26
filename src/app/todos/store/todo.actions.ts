@@ -1,6 +1,6 @@
 import { Update } from '@ngrx/entity';
 import { createAction, props } from '@ngrx/store';
-import { TodoItem } from './todo.state';
+import { TodoItem, ToggleStatus } from './todo.state';
 
 const GET_ALL_TODO_ITEMS_START: string = "[Todo/API] Load todo items start";
 const GET_ALL_TODO_ITEMS_SUCCESS: string = "[Todo/API] Load todo items success";
@@ -44,5 +44,5 @@ export const saveAllItemsFailed = createAction(
 
 export const toggleTodoItemSelection = createAction(
   TOGGLE_SELECT_ITEM,
-  props<{ids: string[]}>()
+  props<{ids: string[], toggle?: ToggleStatus}>()
 )

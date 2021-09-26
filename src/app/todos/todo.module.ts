@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { LoadingModule } from '../shared/loading/loading.module';
 import { MaterialModuleBundle } from '../shared/material-bundle';
 import { PipeBundleModule } from '../shared/pipes/pipe-bundle.module';
 import { SharedBudleModule } from '../shared/shared.module';
@@ -22,6 +23,7 @@ import { TodoComponent } from './todo.component';
     SharedBudleModule,
     StoreModule.forFeature("todo", todoItemsEntityReducer),
     EffectsModule.forFeature(todoEffects),
+    LoadingModule,
     TodoRoutingModule
   ],
 

@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/comp
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from '../stores/global/app.reducer';
-import { TodoItem } from './store/todo.state';
+import { TodoItem, ToggleStatus } from './store/todo.state';
 import * as fromTodoSelectors from './store/todo.selectors';
 import * as fromTodoActions from './store/todo.actions';
 
@@ -19,12 +19,15 @@ export class TodoService {
   public lastFetchedTime$: Observable<number> = this.store.select(fromTodoSelectors.selectLastFetchedTime);
   public isItemSelectedById =
     (id: string | undefined): Observable<boolean> => this.store.select(fromTodoSelectors.isItemSelected(id));
+  public isLoading$: Observable<boolean> = this.store.select(fromTodoSelectors.selectIsApiLoading)
+  public isToggleIndeterminate$: Observable<boolean> = this.store.select(fromTodoSelectors.isToggleIndeterminate);
+  public isToggleAllChecked$: Observable<boolean> = this.store.select(fromTodoSelectors.isToggleAllChecked);
 
   constructor(private afs: AngularFirestore, public store: Store<AppState>) {
   }
 
-  updateItemsSelection(ids: string[]) {
-    this.store.dispatch(fromTodoActions.toggleTodoItemSelection({ids: ids}));
+  updateItemsSelection(ids: string[], toggle?: ToggleStatus) {
+    this.store.dispatch(fromTodoActions.toggleTodoItemSelection({ids: ids, toggle}));
   }
 
   createFakeItems(): void {

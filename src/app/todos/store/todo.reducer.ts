@@ -1,6 +1,6 @@
 import { EntityState, createEntityAdapter, Update, EntityAdapter } from '@ngrx/entity';
 import { createReducer, on, Action } from '@ngrx/store';
-import { TodoItem } from './todo.state';
+import { TodoItem, ToggleStatus } from './todo.state';
 import * as fromTodoActions from './todo.actions';
 
 export interface TodoEntityState extends EntityState<TodoItem> {
@@ -62,14 +62,21 @@ export const todoEntityReducer = createReducer(
     }
   }),
 
-  on(fromTodoActions.toggleTodoItemSelection, (state, { ids }) => {
+  on(fromTodoActions.toggleTodoItemSelection, (state, { ids, toggle }) => {
     const idsDict: {[key: string]: boolean} = {};
-    if (ids && ids.length > 0) {
-      ids.forEach((id) => {
-        idsDict[id] = true;
-      });
+    if (toggle) {
+      if (toggle === ToggleStatus.ALL) {
+        state.ids.forEach((id) => {
+          idsDict[id] = true;
+        });
+      }
+    } else {
+      if (ids && ids.length > 0) {
+        ids.forEach((id) => {
+          idsDict[id] = true;
+        });
+      }
     }
-
 
     return {
       ...state,
