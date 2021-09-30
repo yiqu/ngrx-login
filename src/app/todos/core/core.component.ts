@@ -32,6 +32,7 @@ export class TodoCoreComponent implements OnInit {
         return sel.value?.id;
       });
     }
+    console.log(selectedIds)
     this.ts.updateItemsSelection(selectedIds);
   }
 
@@ -43,5 +44,12 @@ export class TodoCoreComponent implements OnInit {
       this.ts.updateItemsSelection([], ToggleStatus.NONE);
     }
 
+  }
+
+  onToggleComplete(item: TodoItem) {
+    console.log(item)
+    this.ts.editItem(item.id, {
+      isFinished: !item.isFinished
+    });
   }
 }

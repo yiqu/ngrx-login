@@ -15,3 +15,12 @@ button.mat-button {
 .action-row {
   padding-left: 16px;
 }
+
+.done-status {
+  margin-bottom: 5px;
+  height: 13px;
+
+  mat-icon.mat-icon {
+    font-size: 17px !important;
+  }
+}

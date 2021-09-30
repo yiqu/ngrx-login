@@ -6,7 +6,7 @@
   <div class="w-100">
     <ng-container *ngIf="((this.ts.isLoading$ | async) === false); else isLoading">
       <ng-container *ngIf="(this.ts.allTodoItems$ | async) as todoItems">
-        <mat-selection-list #todoList (selectionChange)="onSelectionChange($event)">
+        <mat-selection-list #todoList (selectionChange)="onSelectionChange($event)" [multiple]="true">
 
           <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="start center" class="action-row">
             <div class="toggle-all">
@@ -24,18 +24,35 @@
 
           <hr>
 
-          <ng-container *ngFor="let item of todoItems; trackBy: trackByFn">
-            <div fxLayout="row" fxLayoutAlign="start center" class="mb-2">
-              <mat-list-option [selected]="((this.ts.isItemSelectedById(item.id)) | async)"
-                [checkboxPosition]="'before'" [color]="'primary'" [value]="item">
-              </mat-list-option>
-              <div fxLayout="column" fxLayoutAlign="center start">
-                <div>
-                  {{item.title}}
+          <ng-container *ngFor="let item of todoItems;">
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="mb-2">
+              <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-list-option [selected]="item.selected"
+                  [checkboxPosition]="'before'" [color]="'primary'" [value]="item">
+                </mat-list-option>
+                <div fxLayout="column" fxLayoutAlign="center start">
+                  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+                    <div>
+                      {{item.title}}
+                    </div>
+                    <div class="done-status text-success" *ngIf="item.isFinished">
+                      <mat-icon>done</mat-icon>
+                    </div>
+                    <div class="ml-3">
+                      {{item.content}}
+                    </div>
+                  </div>
+                  <div class="text-muted">
+                    {{item.dateCreated}}
+                  </div>
+
                 </div>
-                <div class="text-muted">
-                  {{item.dateCreated}}
-                </div>
+              </div>
+
+              <div>
+                <button mat-button (click)="onToggleComplete(item)">
+                  Mark as {{ item.isFinished ? 'un-compplete' : 'complete'}}
+                </button>
               </div>
             </div>
           </ng-container>

@@ -1,7 +1,7 @@
 import {createFeatureSelector, createSelector} from '@ngrx/store';
 import { TodoEntityState } from './todo.reducer';
 import * as fromTodoReducer from './todo.reducer';
-import { SelectedIds } from './todo.state';
+import { SelectedIds, TodoItem } from './todo.state';
 
 export const selectTodoFeature = createFeatureSelector<TodoEntityState>("todo");
 
@@ -32,6 +32,28 @@ export const selectIsApiLoading = createSelector(
   }
 );
 
+export const selectCurrentlySelectedIds = createSelector(
+  selectTodoFeature,
+  (state): SelectedIds => {
+    return state.selectedIds;
+  }
+);
+
+export const allTodoItemsWithSelectedProperty = createSelector(
+  selectAllTodoItems,
+  selectCurrentlySelectedIds,
+  (state: TodoItem[], selectedIds: SelectedIds): TodoItem[] => {
+    const updated =  state.map((item: TodoItem) => {
+      return {
+        ...item,
+        selected: selectedIds[item.id] ?? false
+      }
+    });
+    console.log(updated);
+    return updated;
+  }
+)
+
 export const selectLastFetchedTime = createSelector(
   selectTodoFeature,
   (state): number => {
@@ -39,12 +61,7 @@ export const selectLastFetchedTime = createSelector(
   }
 );
 
-export const selectCurrentlySelectedIds = createSelector(
-  selectTodoFeature,
-  (state): SelectedIds => {
-    return state.selectedIds;
-  }
-);
+
 
 export const currentlySelectedIdsLength = createSelector(
   selectCurrentlySelectedIds,

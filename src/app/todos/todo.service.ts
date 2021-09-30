@@ -6,6 +6,7 @@ import { AppState } from '../stores/global/app.reducer';
 import { TodoItem, ToggleStatus } from './store/todo.state';
 import * as fromTodoSelectors from './store/todo.selectors';
 import * as fromTodoActions from './store/todo.actions';
+import { Update } from '@ngrx/entity';
 
 
 @Injectable({
@@ -14,7 +15,7 @@ import * as fromTodoActions from './store/todo.actions';
 export class TodoService {
 
   public todoCollection: AngularFirestoreCollection<TodoItem> = this.afs.collection<TodoItem>('todoList');
-  public allTodoItems$: Observable<TodoItem[]> = this.store.select(fromTodoSelectors.selectAllTodoItems);
+  public allTodoItems$: Observable<TodoItem[]> = this.store.select(fromTodoSelectors.allTodoItemsWithSelectedProperty);
   public selectedIds$: Observable<{[key: string]: boolean}> = this.store.select(fromTodoSelectors.selectCurrentlySelectedIds);
   public lastFetchedTime$: Observable<number> = this.store.select(fromTodoSelectors.selectLastFetchedTime);
   public isItemSelectedById =
@@ -26,8 +27,18 @@ export class TodoService {
   constructor(private afs: AngularFirestore, public store: Store<AppState>) {
   }
 
-  updateItemsSelection(ids: string[], toggle?: ToggleStatus) {
+  updateItemsSelection(ids: string[], toggle?: ToggleStatus): void {
     this.store.dispatch(fromTodoActions.toggleTodoItemSelection({ids: ids, toggle}));
+  }
+
+  editItem(id: string, item: Partial<TodoItem>): void {
+    const toSave: Update<TodoItem> = {
+      id: id,
+      changes: {
+        ...item
+      }
+    };
+    this.store.dispatch(fromTodoActions.editItemStart({item: toSave}));
   }
 
   createFakeItems(): void {

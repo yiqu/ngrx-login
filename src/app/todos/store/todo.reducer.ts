@@ -5,6 +5,7 @@ import * as fromTodoActions from './todo.actions';
 
 export interface TodoEntityState extends EntityState<TodoItem> {
   apiLoading: boolean;
+  editLoading: boolean;
   error?: boolean;
   errMsg?: string;
   selectedIds: {[key: string]: boolean};
@@ -16,6 +17,9 @@ export function selectId(i: TodoItem) {
 }
 export function comparator(a: TodoItem, b: TodoItem) {
   if (a.dateCreated && b.dateCreated) {
+    if (a.dateCreated === b.dateCreated) {
+      return a.title > b.title ? 1 : -1;
+    }
     return a.dateCreated > b.dateCreated ? 1 : -1;
   }
   return 1;
@@ -28,6 +32,7 @@ export const adapter: EntityAdapter<TodoItem> = createEntityAdapter<TodoItem>({
 
 export const inititalState: TodoEntityState = adapter.getInitialState({
   apiLoading: false,
+  editLoading: false,
   selectedIds: {},
   lastFetched: 0
 });
@@ -81,6 +86,31 @@ export const todoEntityReducer = createReducer(
     return {
       ...state,
       selectedIds: idsDict
+    }
+  }),
+
+  on(fromTodoActions.editItemStart, (state, { item }) => {
+    return adapter.updateOne(item, {
+      ...state,
+      editLoading: true
+    })
+  }),
+
+  on(fromTodoActions.editItemSuccess, (state, { time }) => {
+    return {
+      ...state,
+      editLoading: false,
+      error: false,
+      errMsg: undefined
+    }
+  }),
+
+  on(fromTodoActions.editItemFailed, (state, { errMsg }) => {
+    return {
+      ...state,
+      editLoading: false,
+      errMsg,
+      error: true
     }
   }),
 
