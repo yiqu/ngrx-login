@@ -2,6 +2,7 @@ import {createFeatureSelector, createSelector} from '@ngrx/store';
 import { TodoEntityState } from './todo.reducer';
 import * as fromTodoReducer from './todo.reducer';
 import { SelectedIds, TodoItem } from './todo.state';
+import { Update } from '@ngrx/entity';
 
 export const selectTodoFeature = createFeatureSelector<TodoEntityState>("todo");
 
@@ -49,7 +50,6 @@ export const allTodoItemsWithSelectedProperty = createSelector(
         selected: selectedIds[item.id] ?? false
       }
     });
-    console.log(updated);
     return updated;
   }
 )
@@ -102,5 +102,23 @@ export const isToggleAllChecked = createSelector(
       return true;
     }
     return false;
+  }
+);
+
+
+export const getToggleActionShouldMarkDone = createSelector(
+  allTodoItemsWithSelectedProperty,
+  (allItems: TodoItem[]): boolean => {
+    const result = allItems.some((sel: TodoItem) => {
+      return sel.selected && !sel.isFinished;
+    });
+    return result;
+  }
+);
+
+export const getItemsToUpdate = createSelector(
+  selectTodoFeature,
+  (state): Update<TodoItem>[] => {
+    return state.itemsToUpdate ?? [];
   }
 );

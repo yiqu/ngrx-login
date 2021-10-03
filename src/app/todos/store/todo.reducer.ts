@@ -10,6 +10,7 @@ export interface TodoEntityState extends EntityState<TodoItem> {
   errMsg?: string;
   selectedIds: {[key: string]: boolean};
   lastFetched?: number;
+  itemsToUpdate?: Update<TodoItem>[];
 }
 
 export function selectId(i: TodoItem) {
@@ -34,7 +35,8 @@ export const inititalState: TodoEntityState = adapter.getInitialState({
   apiLoading: false,
   editLoading: false,
   selectedIds: {},
-  lastFetched: 0
+  lastFetched: 0,
+  itemsToUpdate: []
 });
 
 
@@ -114,6 +116,35 @@ export const todoEntityReducer = createReducer(
     }
   }),
 
+  on(fromTodoActions.executeMarkAsAction, (state) => {
+    const itemsWithDoneStatus: TodoItem[] = state.ids.map((id) => {
+      return {
+        ...state.entities[id] as TodoItem,
+        selected: state.selectedIds[id] ?? false
+      }
+    });
+
+    const shouldMarkAsDone = itemsWithDoneStatus.some((sel: TodoItem) => {
+      return sel.selected && !sel.isFinished;
+    });
+
+    const itemsToUpdate: Update<TodoItem>[] = [];
+    itemsWithDoneStatus.forEach((item: TodoItem) => {
+      if (item.selected) {
+        const newState: Partial<TodoItem> = {
+          isFinished: shouldMarkAsDone
+        }
+        itemsToUpdate.push({
+          id: item.id,
+          changes: newState
+        });
+      }
+    });
+    return adapter.updateMany(itemsToUpdate, {
+      ...state,
+      itemsToUpdate
+    });
+  })
 
 )
 

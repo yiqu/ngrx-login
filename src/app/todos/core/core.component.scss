@@ -1,4 +1,4 @@
-.title {
+.main .title {
   font-size: 15px;
   text-decoration: underline;
 }
@@ -23,4 +23,15 @@ button.mat-button {
   mat-icon.mat-icon {
     font-size: 17px !important;
   }
+}
+
+.item {
+  padding-right: 10px;
+  .title {
+    width: 80px;
+  }
+}
+
+.item.finished {
+  background-color: #cccccc7a;
 }

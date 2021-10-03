@@ -23,6 +23,10 @@ export class TodoService {
   public isLoading$: Observable<boolean> = this.store.select(fromTodoSelectors.selectIsApiLoading)
   public isToggleIndeterminate$: Observable<boolean> = this.store.select(fromTodoSelectors.isToggleIndeterminate);
   public isToggleAllChecked$: Observable<boolean> = this.store.select(fromTodoSelectors.isToggleAllChecked);
+  public shouldToggleActionExecuteDone$: Observable<boolean> = this.store.select(fromTodoSelectors.getToggleActionShouldMarkDone);
+  public currentSelectedLength$: Observable<number> = this.store.select(fromTodoSelectors.currentlySelectedIdsLength);
+  public itemsToUpdate$: Observable<Update<TodoItem>[]> = this.store.select(fromTodoSelectors.getItemsToUpdate)
+
 
   constructor(private afs: AngularFirestore, public store: Store<AppState>) {
   }
@@ -53,6 +57,10 @@ export class TodoService {
         title: 'Item #' + i
       });
     }
+  }
+
+  onMarkActionClick() {
+    this.store.dispatch(fromTodoActions.executeMarkAsAction());
   }
 
 }

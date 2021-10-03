@@ -32,12 +32,10 @@ export class TodoCoreComponent implements OnInit {
         return sel.value?.id;
       });
     }
-    console.log(selectedIds)
     this.ts.updateItemsSelection(selectedIds);
   }
 
   onToggleAllChange(change: MatCheckboxChange) {
-    console.log(change)
     if (change.checked) {
       this.ts.updateItemsSelection([], ToggleStatus.ALL);
     } else {
@@ -51,5 +49,9 @@ export class TodoCoreComponent implements OnInit {
     this.ts.editItem(item.id, {
       isFinished: !item.isFinished
     });
+  }
+
+  onMarkClick() {
+    this.ts.onMarkActionClick();
   }
 }

@@ -12,6 +12,8 @@ const SAVE_ALL_TODO_ITEMS_FAILED: string = "[Todo/API] Save todo items failed";
 
 const TOGGLE_SELECT_ITEM: string = "[Todo/UI] Toggle select a todo item";
 
+const MARK_AS_ACTION: string = "[Todo/UI] Execute mark as items action";
+
 const EDIT_TODO_ITEM_START: string = "[Todo/API] Edit todo items start";
 const EDIT_TODO_ITEM_SUCCESS: string = "[Todo/API] Edit todo items success";
 const EDIT_TODO_ITEM_FAILED: string = "[Todo/API] Edit todo items failed";
@@ -64,4 +66,8 @@ export const editItemFailed = createAction(
 export const toggleTodoItemSelection = createAction(
   TOGGLE_SELECT_ITEM,
   props<{ids: string[], toggle?: ToggleStatus}>()
+)
+
+export const executeMarkAsAction = createAction(
+  MARK_AS_ACTION
 )
