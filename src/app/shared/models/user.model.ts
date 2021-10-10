@@ -1,5 +1,3 @@
-import firebase from 'firebase/app';
-
 export class User {
   constructor(public id?: string, public display?: string, public user?: any) {
     this.id = id ? id : "UnknownID";
