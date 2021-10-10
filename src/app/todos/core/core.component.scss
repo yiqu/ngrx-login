@@ -1,0 +1,37 @@
+.main .title {
+  font-size: 15px;
+  text-decoration: underline;
+}
+
+button.mat-button {
+  color: #666;
+}
+
+
+.toggle-all {
+  margin-top: 6px;
+}
+
+.action-row {
+  padding-left: 16px;
+}
+
+.done-status {
+  margin-bottom: 5px;
+  height: 13px;
+
+  mat-icon.mat-icon {
+    font-size: 17px !important;
+  }
+}
+
+.item {
+  padding-right: 10px;
+  .title {
+    width: 80px;
+  }
+}
+
+.item.finished {
+  background-color: #cccccc7a;
+}

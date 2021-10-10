@@ -1,0 +1,71 @@
+<div fxLayout="column" fxLayoutGap="15px" fxLayoutAlign="start start" class="mt-3">
+  <div class="main title">
+    Todo List with optimistic state update
+  </div>
+
+  <div class="w-100">
+    <ng-container *ngIf="((this.ts.isLoading$ | async) === false); else isLoading">
+      <ng-container *ngIf="(this.ts.allTodoItems$ | async) as todoItems">
+        <mat-selection-list #todoList (selectionChange)="onSelectionChange($event)" [multiple]="true">
+
+          <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="start center" class="action-row">
+            <div class="toggle-all">
+              <mat-checkbox [color]="'accent'"
+                [checked]="!!(this.ts.isToggleAllChecked$ | async)"
+                [indeterminate]="(this.ts.isToggleIndeterminate$ | async)"
+                (change)="onToggleAllChange($event)">
+              </mat-checkbox>
+            </div>
+
+            <button mat-button>Refresh</button>
+            <ng-container *ngIf="(this.ts.currentSelectedLength$ | async)">
+              <button mat-button (click)="onMarkClick()">
+                <ng-container *ngIf="(this.ts.shouldToggleActionExecuteDone$ | async); else displayUndone">
+                  Mark as done
+                </ng-container>
+                <ng-template #displayUndone>
+                  Mark as undone
+                </ng-template>
+              </button>
+              <button mat-button>Delete</button>
+            </ng-container>
+          </div>
+
+          <hr>
+
+          <ng-container *ngFor="let item of todoItems;">
+            <div fxLayout="row" fxLayoutAlign="space-between center"
+              [ngClass]="{'item': true, 'finished':item.isFinished}">
+              <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-list-option [selected]="item.selected"
+                  [checkboxPosition]="'before'" [color]="'primary'" [value]="item">
+                </mat-list-option>
+                <div fxLayout="column" fxLayoutAlign="center start">
+                  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+                    <div class="title">
+                      {{item.title}}
+                    </div>
+                    <div class="ml-3">
+                      {{item.content}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-muted">
+                {{item.dateCreated | dateDisplay:'FULLANDFROMNOW'}}
+              </div>
+            </div>
+          </ng-container>
+
+        </mat-selection-list>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
+
+<ng-template #isLoading>
+  <div class="my-5">
+    <app-shared-loading></app-shared-loading>
+  </div>
+</ng-template>

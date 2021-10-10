@@ -3,8 +3,6 @@ node_js:
   - stable # Use stable version of node
 
 branches:
-  only:
-    - master # Only build master branch
   except:
     - gh-pages # Do not ever build off gh-pages branch
 

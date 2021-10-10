@@ -8,10 +8,8 @@ import { ToasterService } from 'src/app/shared/services/toaster.service';
 import * as fromIssueActions from './issue.actions';
 import * as fromFirebaseUtils from '../../shared/services/firebase.utils';
 import { Update } from '@ngrx/entity';
-import { DocumentChangeAction } from '@angular/fire/firestore';
 import { throwError } from 'rxjs';
 import { FirebasePromiseError } from 'src/app/shared/models/firebase.model';
-import * as firebase from 'firebase/app'
 import { CoreService, ISSUES_PATH } from 'src/app/shared/services/core.service';
 import { Action } from '@ngrx/store';
 

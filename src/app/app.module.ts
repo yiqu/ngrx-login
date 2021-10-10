@@ -9,7 +9,8 @@ import { NotFoundComponentModule } from './404/404.module';
 import { MaterialModuleBundle } from './shared/material-bundle';
 import { TopNavModule } from './top-nav/top-nav.module';
 import { SideNavModule } from './side-nav/side-nav.module';
-import { AngularFireModule } from '@angular/fire';
+import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
 import { appReducers } from './stores/global/app.reducer';
 import { EffectsModule } from '@ngrx/effects';
@@ -20,7 +21,10 @@ import { FooterModule } from './footer/footer.module';
 import { SharedBudleModule } from './shared/shared.module';
 import { metaReducers } from './stores/global/meta-reducer';
 import { HttpClientModule } from '@angular/common/http';
+import { AngularFireModule} from '@angular/fire/compat'
+import firebase from 'firebase/compat/app';
 
+firebase.initializeApp(environment.firebaseConfig);
 
 @NgModule({
   declarations: [

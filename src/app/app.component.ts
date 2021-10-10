@@ -2,7 +2,6 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Store } from '@ngrx/store';
-import * as firebase from 'firebase/app';
 import { Subject } from 'rxjs';
 // import 'firebase/analytics';
 // import 'firebase/auth';
@@ -13,6 +12,7 @@ import { AppMetaService } from './shared/services/meta.service';
 import { RestService } from './shared/services/rest.service';
 import { AppState } from './stores/global/app.reducer';
 import * as fromIssuesActions from './stores/issue/issue.actions';
+import { initializeApp } from 'firebase/app';
 
 @Component({
   selector: 'app-root',
@@ -33,7 +33,6 @@ export class AppComponent implements OnInit {
 
   constructor(public changeDetectorRef: ChangeDetectorRef, public ims: IsMobileService, public media: MediaMatcher,
     private store: Store<AppState>, public ms: AppMetaService, private rs: RestService) {
-
     this.setMobileDetection();
   }
 
@@ -56,7 +55,7 @@ export class AppComponent implements OnInit {
    * NOTE: Injecting AngularFire will auto initializeApp
    */
   initFirebase() {
-    firebase.default.initializeApp(environment.firebaseConfig);
+    initializeApp(environment.firebaseConfig);
   }
 
   onTopNavMenuClick() {

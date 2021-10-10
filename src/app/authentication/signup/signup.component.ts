@@ -1,7 +1,6 @@
 import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import * as fu from '../../shared/general.utils';
-import * as firebase from 'firebase/app';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { ErrorStateMatcher } from '@angular/material/core';

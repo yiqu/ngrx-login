@@ -29,7 +29,7 @@ export class VerifiedUser {
     public isAnonymous: boolean | undefined,
     public lastLoginAt: string | undefined | null,
     public photoURL: string | undefined | null,
-    public providerData: (firebase.UserInfo | null)[] | undefined,
+    public providerData: any,
     public stsTokenManager: any,
     public tenantId: string | undefined | null,
     public uid: string | undefined | null,
